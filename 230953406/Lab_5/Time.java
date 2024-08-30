@@ -28,11 +28,11 @@ class Time {
 }
 class TimeDemo {
     public static void main(String args[]) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         System.out.println("Enter first time (hours minutes seconds): ");
-        Time time1 = new Time(scanner.nextInt(), scanner.nextInt(), scanner.nextInt());
+        Time time1 = new Time(sc.nextInt(), sc.nextInt(), sc.nextInt());
         System.out.println("Enter second time (hours minutes seconds): ");
-        Time time2 = new Time(scanner.nextInt(), scanner.nextInt(), scanner.nextInt());
+        Time time2 = new Time(sc.nextInt(), sc.nextInt(), sc.nextInt());
         System.out.print("First Time: ");
         time1.displayTime();
         System.out.print("Second Time: ");
@@ -40,6 +40,5 @@ class TimeDemo {
         Time addedTime = time1.addTime(time2);
         System.out.print("Added Time: ");
         addedTime.displayTime();
-        scanner.close();
     }
 }
