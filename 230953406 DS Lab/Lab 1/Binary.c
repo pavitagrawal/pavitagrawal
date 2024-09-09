@@ -1,6 +1,6 @@
 #include<stdio.h>
 int main(){
-    int key, n, arr[50], i, low, high, mid;
+    int key, n, arr[50], i, low, high, mid, check = 0;
     printf("Enter the no. of elements of list: ");
     scanf("%d", &n);
     printf("Enter the elements: ");
@@ -23,7 +23,11 @@ int main(){
         }
         else if(key == arr[mid]){
             printf("Key found at %d place", mid+1);
+            check = 1;
             break;
         }
+    }
+    if(check == 0){
+        printf("Key not found.");
     }
 }
