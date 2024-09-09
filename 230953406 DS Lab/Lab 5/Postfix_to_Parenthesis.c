@@ -29,7 +29,7 @@ void postfix_to_infix(char* expr){
         } else if (is_operator(expr[i])) {
             char* op1 = POP();
             char* op2 = POP();
-            sprintf(temp, "(%s %c %s)", op2, expr[i], op1);
+            printf(temp, "(%s %c %s)", op2, expr[i], op1);
             PUSH(temp);
         }
     }
