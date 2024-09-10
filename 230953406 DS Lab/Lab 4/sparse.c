@@ -1,84 +1,61 @@
-#include<stdio.h>
-#define max 5
-#include<stdlib.h>
-struct CircularQueue{
-    int front,rear,size;
-    int arr[max];
+#include <stdio.h>
+struct sparse {
+    int row;
+    int col;
+    int val;
 };
-void initQueue(struct CircularQueue *q){
-    q->front=q->rear=-1;
-    q->size =0;
+void transpose(struct sparse a[], struct sparse b[]){
+    int n, i, j, currentb;
+    n = a[0].val;
+    b[0].row = a[0].row;
+    b[0].col = a[0].col;
+    b[0].val = n;
+    if(n>0){
+        currentb = 1;
+        for(i=0;i<a[0].col;i++){
+            for(j=1;j<=n;j++){
+                if(a[j].col==i){
+                    b[currentb].row = a[j].col;
+                    b[currentb].col = a[j].row;
+                    b[currentb].val = a[j].val;
+                    currentb++;
+                }
+            }
+        }
+    }
 }
-int isEmpty(struct CircularQueue *q){
-    return(q->size==0);
-}
-int isFull(struct CircularQueue *q){
-    return(q->size == max);
-}
-void enqueue(struct CircularQueue *q,int value){
-    if(isFull(q)){
-        printf("Queue is full,cannot enqueue.\n");
-        return;
+int main() {
+    int row, col, val, A[100][100], i, j, k = 1;
+    struct sparse a[1000];
+    printf("Enter the number of rows: ");
+    scanf("%d", &row);
+    printf("Enter the number of columns: ");
+    scanf("%d", &col);
+    printf("Enter the elements:\n");
+    for (i = 0; i < row; i++){
+        for (j = 0; j < col; j++){
+            scanf("%d", &A[i][j]);
+            if (A[i][j] != 0) {
+                a[k].row = i;
+                a[k].col = j;
+                a[k].val = A[i][j];
+                k++;
+            }
+        }
     }
-    if(isEmpty(q)){
-        q->front = q->rear = 0;
+    a[0].row = row;
+    a[0].col = col;
+    a[0].val = k - 1;
+    printf("The array of structure is:\n");
+    for (i = 0; i < k; i++){
+        printf("row: %d, col: %d, value: %d\n", a[i].row, a[i].col, a[i].val);
     }
-    else{
-        q->rear = (q->rear+1)%max;
+
+    struct sparse b[1000];
+    transpose(a, b);
+    printf("After transpose:\n");
+    for (i = 0; i < k; i++){
+        printf("row: %d, col: %d, value: %d\n", b[i].row, b[i].col, b[i].val);
     }
-    q->arr[q->rear] = value;
-    q->size++;
-    printf("Enqueued %d\n",value);
-}
-int dequeue(struct CircularQueue *q){
-    if(isEmpty(q)){
-        printf("Cannot dequeue,queue is empty");
-        return -1;
-    }
-    int value = q->arr[q->front];
-    if(q->front ==q->rear){
-        q->front = q->rear = -1;
-    }
-    else{
-        q->front =(q->front+1)%max;
-    }
-    q->size--;
-    return value;
-}
-void displayQueue(struct CircularQueue *q){
-    if(isEmpty(q)){
-        printf("Queue is empty");
-        return 0;
-    }
-    printf("Queue elements: ");
-    int i = q->front;
-    while (1) {
-        printf("%d ", q->arr[i]);
-        if (i == q->rear) break;
-        i = (i + 1) % max;
-    }
-    printf("\n");
-}
-int main(){
-    struct CircularQueue q;
-    initQueue(&q);
-    enqueue(&q,10);
-    enqueue(&q,20);
-    enqueue(&q,30);
-    enqueue(&q,40);
-    enqueue(&q,50);
-    displayQueue(&q);
-    enqueue(&q,60);
-    printf("Dequeued %d\n", dequeue(&q));
-    printf("Dequeued %d\n", dequeue(&q));
-    displayQueue(&q);
-    enqueue(&q, 60);
-    enqueue(&q, 70);
-    displayQueue(&q);
     return 0;
 }
-
-
-
-
-
