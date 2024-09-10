@@ -12,7 +12,7 @@ void preToInfix(char* prefix, char infix[][100]) {
             strcpy(op1, infix[top--]);
             strcpy(op2, infix[top--]);
             char temp[100];
-            sprintf(temp, "(%s%c%s)", op1, prefix[i], op2);
+            printf(temp, "(%s%c%s)", op1, prefix[i], op2);
             strcpy(infix[++top], temp);
         } else {
             char operand[2] = {prefix[i], '\0'};
