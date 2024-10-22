@@ -1,226 +1,181 @@
-# include <stdio.h>
-#include<stdlib.h>
-struct node
-{
-	int info;
-	struct node *link;
-}*start;
-int create_list(int),addatbeg(int),addafter(int,int),del(int),display(),count(),rev(),search(int);
-main()
-{
-	int choice,n,m,position,i;
-	start=NULL;
-	while(1)
-	{
-		printf("\n\n");
-		printf("1.Create List\n");
-		printf("2.Add at begining\n");
-		printf("3.Add after \n");
-		printf("4.Delete\n");
-		printf("5.Display\n");
-		printf("6.Count\n");
-		printf("7.Reverse\n");
-		printf("8.Search\n");
-		printf("9.Quit\n");
-		printf("Enter your choice : ");
-		scanf("%d",&choice);
-		switch(choice)
-		{
-		 case 1:
-			printf("How many nodes you want : ");
-			scanf("%d",&n);
-			for(i=0;i<n;i++)
-			{
-				printf("Enter the element : ");
-				scanf("%d",&m);
-				create_list(m);
-			}
-			break;
-		 case 2:
-			printf("Enter the element : ");
-			scanf("%d",&m);
-			addatbeg(m);
-			break;
-		 case 3:
-			printf("Enter the element : ");
-			scanf("%d",&m);
-			printf("Enter the position after which this element is inserted : ");
-			scanf("%d",&position);
-			addafter(m,position);
-			break;
-		 case 4:
-			if(start==NULL)
-			{
-				printf("List is empty\n");
-				continue;
-			}
-			printf("Enter the element for deletion : ");
-			scanf("%d",&m);
-			del(m);
-			break;
-		 case 5:
-			display();
-			break;
-		 case 6:
-			count();
-			break;
-		 case 7:
-			rev();
-			break;
-		 case 8:
-			printf("Enter the element to be searched : ");
-			scanf("%d",&m);
-			search(m);
-			break;
-		 case 9:
-			exit(0);
-		 default:
-			printf("Wrong choice\n");
-		}
-	}
+#include <stdio.h>
+
+typedef struct Node {
+    int data;
+    struct Node *next;
+} Node;
+
+void insertBefore(Node **head, int data, int beforeData) {
+    Node *newNode = (Node *)malloc(sizeof(Node));
+    newNode->data = data;
+    if (*head == NULL || (*head)->data == beforeData) {
+        newNode->next = *head;
+        *head = newNode;
+    } else {
+        Node *temp = *head;
+        while (temp->next != NULL && temp->next->data != beforeData)
+            temp = temp->next;
+        if (temp->next != NULL) {
+            newNode->next = temp->next;
+            temp->next = newNode;
+        }
+    }
 }
-int create_list(int data)
-{
-	struct node *q,*tmp;
-	tmp=(struct node *) malloc(sizeof(struct node));
-	tmp->info=data;
-	tmp->link=NULL;
-	if(start==NULL)
-		start=tmp;
-	else
-	{
-		q=start;
-		while(q->link!=NULL)
-			q=q->link;
-		q->link=tmp;
-	}
+
+void insertAfter(Node **head, int data, int afterData) {
+    Node *newNode = (Node *)malloc(sizeof(Node));
+    newNode->data = data;
+    if (*head == NULL)
+        *head = newNode;
+    else {
+        Node *temp = *head;
+        while (temp != NULL && temp->data != afterData)
+            temp = temp->next;
+        if (temp != NULL) {
+            newNode->next = temp->next;
+            temp->next = newNode;
+        }
+    }
 }
-int addatbeg(int data)
-{
-	struct node *tmp;
-	tmp=(struct node *)malloc(sizeof(struct node));
-	tmp->info=data;
-	tmp->link=start;
-	start=tmp;
-}
-int addafter(int data,int pos)
-{
-	struct node *tmp,*q;
-	int i;
-	q=start;
-	for(i=0;i<pos-1;i++)
-	{
-		q=q->link;
-		if(q==NULL)
-		{
-			printf("There are less than %d elements",pos);
-		}
-	}
-	tmp=(struct node *)malloc(sizeof(struct node) );
-	tmp->link=q->link;
-	tmp->info=data;
-	q->link=tmp;
-}
-int del(int data)
-{
-	int found=0;
-	struct node *tmp,*q,*pre;
-	if(start->info == data)
-	{
-		tmp=start;
-		start=start->link;
-		free(tmp);
-		found=1;
-	}
-	else
-	{
-		found=0;
-		q=start;
-		while(q->link!=NULL)
-		{
-			if(q->info==data)
-			{
-				found=1;
-				pre->link=q->link;
-				tmp=q;
-				free(tmp);
-				break;
-			}
-			pre=q;
-			q=q->link;
-		}
-		if(q->info==data)
-		{
-			tmp=q;
-			free(tmp);
-			pre->link=NULL;
-			found=1;
-		}
-	}
-	if(found==0){
-		printf("Element %d not found\n",data);
-	}
-}
-int display()
-{
-	struct node *q;
-	if(start == NULL)
-	{
-		printf("List is empty\n");
-	}
-	q=start;
-	printf("List is :\n");
-	while(q!=NULL)
-	{
-		printf("%d ", q->info);
-		q=q->link;
-	}
-	printf("\n");
-}
-int count()
-{
-	struct node *q=start;
-	int cnt=0;
-	while(q!=NULL)
-	{
-		q=q->link;
-		cnt++;
-	}
-	printf("Number of elements are %d\n",cnt);
-}
-int rev()
-{
-	struct node *p1,*p2,*p3;
-	if (start==NULL||start->link==NULL){
+
+void deleteNode(Node **head, int data) {
+    if (*head == NULL)
         return;
-	}
-    p1=start;
-    p2=p1->link;
-    p3=p2->link;
-    p1->link=NULL;
-    p2->link=p1;
-	while(p3!=NULL)
-	{
-		p1=p2;
-		p2=p3;
-		p3=p3->link;
-		p2->link=p1;
-	}
-	start=p2;
+    if ((*head)->data == data) {
+        Node *temp = *head;
+        *head = (*head)->next;
+        free(temp);
+    } else {
+        Node *temp = *head;
+        while (temp->next != NULL && temp->next->data != data)
+            temp = temp->next;
+        if (temp->next != NULL) {
+            Node *nodeToDelete = temp->next;
+            temp->next = temp->next->next;
+            free(nodeToDelete);
+        }
+    }
 }
-int search(int data)
-{
-	struct node *ptr = start;
-	int pos = 1;
-	while(ptr!=NULL)
-	{
-		if(ptr->info==data)
-		{
-			printf("Item %d found at position %d\n",data,pos);
-		}
-		ptr = ptr->link;
-		pos++;
-	}
-	if(ptr == NULL)
-		printf("Item %d not found in list\n",data);
+
+void traverse(Node *head) {
+    while (head != NULL) {
+        printf("%d ", head->data);
+        head = head->next;
+    }
+    printf("\n");
+}
+
+void reverse(Node **head) {
+    Node *prev = NULL;
+    Node *current = *head;
+    Node *next = NULL;
+    while (current != NULL) {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    *head = prev;
+}
+
+void sort(Node **head) {
+    Node *current = *head;
+    Node *next = NULL;
+    int temp;
+    while (current != NULL) {
+        next = current->next;
+        while (next != NULL) {
+            if (current->data > next->data) {
+                temp = current->data;
+                current->data = next->data;
+                next->data = temp;
+            }
+            next = next->next;
+        }
+        current = current->next;
+    }
+}
+
+void deleteAlternate(Node **head) {
+    Node *current = *head;
+    Node *next = NULL;
+    while (current != NULL && current->next != NULL) {
+        next = current->next;
+        current->next = next->next;
+        free(next);
+        current = current->next;
+    }
+}
+
+void insertSorted(Node **head, int data) {
+    Node *newNode = (Node *)malloc(sizeof(Node));
+    newNode->data = data;
+    if (*head == NULL || (*head)->data >= data) {
+        newNode->next = *head;
+        *head = newNode;
+    } else {
+        Node *temp = *head;
+        while (temp->next != NULL && temp->next->data < data)
+            temp = temp->next;
+        newNode->next = temp->next;
+        temp->next = newNode;
+    }
+}
+
+int main() {
+    Node *head = NULL;
+    int choice, data, beforeData, afterData;
+    while (1) {
+        printf("1. Insert before\n");
+        printf("2. Insert after\n");
+        printf("3. Delete node\n");
+        printf("4. Traverse\n");
+        printf("5. Reverse\n");
+        printf("6. Sort\n");
+        printf("7. Delete alternate nodes\n");
+        printf("8. Insert in sorted list\n");
+        printf("9. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1:
+                printf("Enter data and before data: ");
+                scanf("%d %d", &data, &beforeData);
+                insertBefore(&head, data, beforeData);
+                break;
+            case 2:
+                printf("Enter data and after data: ");
+                scanf("%d %d", &data, &afterData);
+                insertAfter(&head, data, afterData);
+                break;
+            case 3:
+                printf("Enter data to delete: ");
+                scanf("%d", &data);
+                deleteNode(&head, data);
+                break;
+            case 4:
+                traverse(head);
+                break;
+            case 5:
+                reverse(&head);
+                break;
+            case 6:
+                sort(&head);
+                break;
+            case 7:
+                deleteAlternate(&head);
+                break;
+            case 8:
+                printf("Enter data to insert: ");
+                scanf("%d", &data);
+                insertSorted(&head, data);
+                break;
+            case 9:
+                exit(0);
+            default:
+                printf("Invalid choice.\n");
+        }
+    }
+
+    return 0;
 }
