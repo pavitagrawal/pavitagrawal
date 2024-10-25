@@ -1,3 +1,4 @@
+import java.util.Scanner;
 class EvenNumberException extends Exception {
     public EvenNumberException(String message) {
         super(message);
@@ -6,10 +7,10 @@ class EvenNumberException extends Exception {
 
 public class EvenNumberChecker {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         System.out.print("Enter a number: ");
-        int number = scanner.nextInt();
+        int number = sc.nextInt();
 
         try {
             if (number % 2 == 0) {
@@ -19,7 +20,5 @@ public class EvenNumberChecker {
         } catch (EvenNumberException e) {
             System.err.println(e.getMessage());
         }
-
-        scanner.close();
     }
 }
