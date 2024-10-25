@@ -1,3 +1,4 @@
+import java.util.Scanner;
 class MarkOutOfBoundsException extends Exception {
     public MarkOutOfBoundsException(String message) {
         super(message);
@@ -21,11 +22,11 @@ class Student {
 
 public class StudentMarks {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         Student student = new Student();
 
         System.out.print("Enter the student's marks: ");
-        int marks = scanner.nextInt();
+        int marks = sc.nextInt();
 
         try {
             student.setMarks(marks);
@@ -33,7 +34,5 @@ public class StudentMarks {
         } catch (MarkOutOfBoundsException e) {
             System.err.println(e.getMessage());
         }
-
-        scanner.close();
     }
 }
