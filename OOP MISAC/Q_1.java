@@ -1,86 +1,113 @@
+
 import java.util.*;
 
 class Warehouse {
     String productId;
-    int quantity, unitCost;
+    int quantity;
+    int unitCost;
 
-    Warehouse(String pid, int q, int uc) {
-        productId = pid;
-        quantity = q;
-        unitCost = uc;
+    public Warehouse(String productId, int quantity, int unitCost) {
+        this.productId = productId;
+        this.quantity = quantity;
+        this.unitCost = unitCost;
     }
 }
 
 class Order {
-    int orderedQuantity, orderId;
+    int orderedQuantity;
+    int orderID;
     String date;
 
-    Order(int oq, int oid, String d) {
-        orderedQuantity = oq;
-        orderId = oid;
-        date = d;
+    public Order(int orderedQuantity, int orderID, String date) {
+        this.orderedQuantity = orderedQuantity;
+        this.orderID = orderID;
+        this.date = date;
+    }
+}
+
+class OrderException extends Exception {
+    public OrderException(String message) {
+        super(message);
     }
 }
 
 class BookOrderThread extends Thread {
-    Warehouse warehouse;
-    int orderedQuantity;
-    int orderIdGenerator;
-    List<Order> orderList;
+    private Warehouse warehouse;
+    private Order order;
 
-    BookOrderThread(Warehouse w, int oq, int oidGen, List<Order> ol) {
-        warehouse = w;
-        orderedQuantity = oq;
-        orderIdGenerator = oidGen;
-        orderList = ol;
+    public BookOrderThread(Warehouse warehouse, Order order) {
+        this.warehouse = warehouse;
+        this.order = order;
     }
 
     public void run() {
-        synchronized (warehouse) {
-            if (warehouse.quantity < orderedQuantity)
-                throw new RuntimeException("Out of Stock for " + warehouse.productId);
-
-            int orderId = orderIdGenerator++;
-            int totalCost = orderedQuantity * warehouse.unitCost;
-            warehouse.quantity -= orderedQuantity;
-
-            
-            int i = 0;
-            while (i < orderList.size() && orderList.get(i).date.compareTo(new Date().toString()) < 0) {
-                i++;
-            }
-            orderList.add(i, new Order(orderedQuantity, orderId, new Date().toString()));
-
-            System.out.println("Order Placed: " + orderId + ", " + warehouse.productId + ", " + orderedQuantity + ", " + totalCost);
+        try {
+            checkAvailableQuantity();
+            computeTotCost();
+        } catch (OrderException e) {
+            System.out.println(e.getMessage());
         }
+    }
+
+    private synchronized void checkAvailableQuantity() throws OrderException {
+        if (warehouse.quantity == 0) {
+            throw new OrderException("Order cannot be placed");
+        }
+        if (order.orderedQuantity <= 0) {
+            throw new OrderException("Order quantity is invalid");
+        }
+        if (order.orderedQuantity > warehouse.quantity) {
+            throw new OrderException("Out of Stock for " + warehouse.productId);
+        }
+        warehouse.quantity -= order.orderedQuantity;
+    }
+
+    private void computeTotCost() {
+        int totalCost = order.orderedQuantity * warehouse.unitCost;
+        System.out.println("Order ID: " + order.orderID + ", Total Cost: " + totalCost);
     }
 }
 
-public class WarehouseManagement {
+public class OrderManagement {
+    private static Map<String, Warehouse> warehouseMap = new HashMap<>();
+    private static List<Order> orderList = new ArrayList<>();
+
     public static void main(String[] args) {
-        Warehouse warehouse = new Warehouse("P123", 100, 10);
-        int orderIdGenerator = 1;
-        List<Order> orderList = new ArrayList<>();
+        warehouseMap.put("P001", new Warehouse("P001", 10, 100));
+        warehouseMap.put("P002", new Warehouse("P002", 0, 150));
 
-        Thread t1 = new BookOrderThread(warehouse, 50, orderIdGenerator, orderList);
-        Thread t2 = new BookOrderThread(warehouse, 30, orderIdGenerator, orderList);
-        Thread t3 = new BookOrderThread(warehouse, 20, orderIdGenerator, orderList);
+        placeOrder("P001", 5, 1, "2023-10-01");
+        placeOrder("P001", 3, 2, "2023-10-02");
+        placeOrder("P002", 1, 3, "2023-10-03");
+        placeOrder("P001", 0, 4, "2023-10-04");
+        placeOrder("P001", 6, 5, "2023-10-05");
+        placeOrder("P003", 2, 6, "2023-10-06");
 
-        t1.start();
-        t2.start();
-        t3.start();
+        displaySortedOrders();
+    }
 
+    private static void placeOrder(String productId, int orderedQuantity, int orderID, String date) {
+        Warehouse warehouse = warehouseMap.get(productId);
+        if (warehouse == null) {
+            System.out.println("ProductID does not exist");
+            return;
+        }
+        Order order = new Order(orderedQuantity, orderID, date);
+        BookOrderThread orderThread = new BookOrderThread(warehouse, order);
+        orderThread.start();
         try {
-            t1.join();
-            t2.join();
-            t3.join();
+            orderThread.join();
+            orderList.add(order);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
 
-        System.out.println("\nSorted Order Details:");
+    private static void displaySortedOrders() {
+        Collections.sort(orderList, Comparator.comparing(o -> o.date));
+        System.out.println("Sorted Order Details:");
         for (Order order : orderList) {
-            System.out.println("OrderID: " + order.orderId + ", ProductID: " + warehouse.productId + ", Quantity: " + order.orderedQuantity + ", Date: " + order.date);
+            System.out.println("Order ID: " + order.orderID + ", Date: " + order.date + ", Quantity: " + order.orderedQuantity);
         }
     }
 }
