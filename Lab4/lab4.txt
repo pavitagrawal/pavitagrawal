@@ -1,0 +1,192 @@
+SQL> select table_name from user_tables;
+
+TABLE_NAME
+--------------------------------------------------------------------------------
+ACCIDENT
+CAR
+OWNS
+PARTICIPATED
+PERSON
+
+SQL> select * from car
+  2  ;
+
+REGNO                MODEL                                YEAR
+-------------------- ------------------------------ ----------
+230953406            Vitara_Brezza                        2021
+230953408            Creta                                2022
+230953410            Santro                               2022
+230953412            Rolls_Royce                          2023
+230953414            Mercedese_Benz                       2025
+
+SQL> select * from ACCIDENT
+  2  ;
+
+REPORT_NUMBER ACCD_DATE LOCATION
+------------- --------- --------------------------------------------------
+        10001 18-FEB-21 Manipal
+        10002 05-AUG-22 Mangalore
+        10003 11-OCT-22 Goa
+        10004 29-JUN-23 Pune
+
+SQL> select * from OWNS;
+
+DRIVER_ID                      REGNO
+------------------------------ --------------------
+UP-001                         230953406
+UP-002                         230953408
+UP-003                         230953410
+UP-004                         230953412
+UP-005                         230953414
+
+SQL> select * from PARTICIPATED;
+
+DRIVER_ID                      REGNO                REPORT_NUMBER DAMAGE_AMOUNT
+------------------------------ -------------------- ------------- -------------
+UP-001                         230953406                    10001         10000
+UP-002                         230953408                    10002         20000
+UP-003                         230953410                    10003         30000
+UP-004                         230953412                    10004         25000
+
+SQL> select * from PERSON;
+
+DRIVER NAME   ADDRESS
+------ ------ ---------------
+UP-001 Pavit  Indirapuram
+UP-002 Akhil  Noida
+UP-003 Bhavya Gurugram
+UP-004 Ishan  Vaishali
+UP-005 Aniket Meerut
+
+insert into ACCIDENT
+values(10005, '17-MAR-2008', 'Faridabad');
+
+insert into ACCIDENT
+values(10006, '04-APR-2008', 'Rampur');
+
+insert into ACCIDENT
+values(10007, '10-NOV-2008', 'Haldwani');
+
+SQL> select * from ACCIDENT;
+
+REPORT_NUMBER ACCD_DATE LOCATION
+------------- --------- --------------------------------------------------
+        10005 17-MAR-08 Faridabad
+        10006 04-APR-08 Rampur
+        10007 10-NOV-08 Haldwani
+        10001 18-FEB-21 Manipal
+        10002 05-AUG-22 Mangalore
+        10003 11-OCT-22 Goa
+        10004 29-JUN-23 Pune
+
+7 rows selected.
+
+select count (distinct ACCD_DATE) 
+from ACCIDENT 
+where extract(year from ACCD_DATE)=2008;
+
+SQL> select count (distinct ACCD_DATE)
+  2  from ACCIDENT
+  3  where extract(year from ACCD_DATE)=2008;
+
+COUNT(DISTINCTACCD_DATE)
+------------------------
+                       3
+
+insert into PARTICIPATED
+values('UP-005', '230953414', 10005, 30000);
+
+insert into PARTICIPATED
+values('UP-003', '230953410', 10006, 20000);
+
+insert into PARTICIPATED
+values('UP-003', '230953410', 10007, 75000);
+
+SQL> select * from PARTICIPATED;
+
+DRIVER_ID                      REGNO                REPORT_NUMBER DAMAGE_AMOUNT
+------------------------------ -------------------- ------------- -------------
+UP-005                         230953414                    10005         30000
+UP-003                         230953410                    10006         20000
+UP-003                         230953410                    10007         75000
+UP-001                         230953406                    10001         10000
+UP-002                         230953408                    10002         20000
+UP-003                         230953410                    10003         30000
+UP-004                         230953412                    10004         25000
+
+7 rows selected.
+
+SQL> SELECT c.model, COUNT(DISTINCT p.report_number) AS number_of_accidents
+  2  FROM CAR c, PARTICIPATED p, ACCIDENT a
+  3  WHERE c.regno = p.regno
+  4    AND p.report_number = a.report_number
+  5    AND c.model = 'Santro'
+  6  GROUP BY c.model;
+
+MODEL  NUMBER_OF_ACCIDENTS
+------ -------------------
+Santro                   3
+
+
+SELECT pe.name AS OWNER_NAME, COUNT(p.report_number) AS No_of_Accidents, SUM(p.damage_amount) AS Total_Damage_Amount
+  FROM PERSON pe, OWNS o, PARTICIPATED p
+  WHERE pe.driver_id = o.driver_id
+  AND o.regno = p.regno
+  GROUP BY pe.name
+  ORDER BY Total_Damage_Amount DESC;
+
+OWNER_ NO_OF_ACCIDENTS TOTAL_DAMAGE_AMOUNT
+------ --------------- -------------------
+Bhavya               3              125000
+Aniket               1               30000
+Ishan                1               25000
+Akhil                1               20000
+Pavit                1               10000
+
+
+SELECT pe.name AS OWNER_NAME, EXTRACT(YEAR FROM a.accd_date) AS Year, COUNT(p.report_number) AS No_of_Accidents
+FROM PERSON pe, OWNS o, PARTICIPATED p, ACCIDENT a
+WHERE pe.driver_id = o.driver_id
+  AND o.regno = p.regno
+  AND p.report_number = a.report_number
+GROUP BY pe.name, EXTRACT(YEAR FROM a.accd_date)
+ORDER BY pe.name, Year;
+
+SELECT pe.name AS OWNER_NAME, EXTRACT(YEAR FROM a.accd_date) AS Year, COUNT(p.report_number) AS No_of_Accidents
+  2  FROM PERSON pe, OWNS o, PARTICIPATED p, ACCIDENT a
+  3  WHERE pe.driver_id = o.driver_id
+  4    AND o.regno = p.regno
+  5    AND p.report_number = a.report_number
+  6  GROUP BY pe.name, EXTRACT(YEAR FROM a.accd_date)
+  7  ORDER BY pe.name, Year;
+
+OWNER_       YEAR NO_OF_ACCIDENTS
+------ ---------- ---------------
+Akhil        2022               1
+Aniket       2008               1
+Bhavya       2008               2
+Bhavya       2022               1
+Ishan        2023               1
+Pavit        2021               1
+
+6 rows selected.
+
+delete from OWNS where REGNO = 230953406;
+
+1 row deleted.
+
+delete from PARTICIPATED where REGNO = 230953406;
+
+1 row deleted.
+
+SELECT pe.name AS OWNER_NAME
+FROM PERSON pe
+WHERE pe.driver_id NOT IN (
+  SELECT o.driver_id
+  FROM OWNS o, PARTICIPATED p
+  WHERE o.regno = p.regno
+);
+
+OWNER_
+------
+Pavit

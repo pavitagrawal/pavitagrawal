@@ -1,0 +1,317 @@
+create table STUDENT (
+regno varchar (20),
+name varchar (50),
+major varchar (20),
+bdate date,
+primary key (regno));
+
+create table COURSE (
+course# int,
+cname varchar (30),
+dept varchar (30),
+primary key (course#));
+
+create table TEXT (
+book_isbn int,
+booktitle varchar (50),
+publisher varchar (50),
+author varchar (50),
+primary key (book_isbn));
+
+create table ENROLL (
+regno varchar (20),
+course# int,
+sem int,
+book_isbn int,
+primary key (regno, course#, book_isbn),
+foreign key(regno) references STUDENT(regno),
+foreign key(course#) references COURSE(course#),
+foreign key(book_isbn) references TEXT(book_isbn));
+
+create table BOOK_ADOPTION (
+course# int,
+sem int,
+book_isbn int,
+primary key (course#, book_isbn),
+foreign key(course#) references COURSE(course#),
+foreign key(book_isbn) references TEXT(book_isbn));
+
+insert into STUDENT
+values('123','Pavit','CCE','13-apr-2006');
+insert into STUDENT
+values('456','Akhil','CCE','17-sep-2005');
+insert into STUDENT
+values('789','Bhavya','Environment','01-jan-2023');
+insert into STUDENT
+values('101','Akash','Environment','23-sep-2004');
+insert into STUDENT
+values('567','Ishaan','CSE','07-dec-2003');
+insert into STUDENT
+values('890','Ashwin','CSE','25-feb-2004');
+insert into STUDENT
+values('234','Gokul','CCE','12-feb-2024');
+
+insert into COURSE
+values(1101,'DBMS','ICT');
+insert into COURSE
+values(1102,'DAA','ICT');
+insert into COURSE
+values(2201,'COA','CS');
+insert into COURSE
+values(2202,'DSD','CS');
+insert into COURSE
+values(3301,'MATH','EVS');
+insert into COURSE
+values(3302,'POETRY','EVS');
+insert into COURSE
+values(3303,'Random','EVS');
+
+insert into text
+values(1234,'DBMS vol 1','Pearson','SS');
+insert into text
+values(4123,'DBMS vol 2','Pearson','SS');
+insert into text
+values(5678,'DAA vol 2','Pearson','Ramanujan');
+insert into text
+values(9012,'COA vol 666','Cengage','Satan');
+insert into text
+values(3456,'DSD vol 99','Penguin','Panda');
+insert into text
+values(7890,'Math vol 66','Cengage','R S Aggrwal');
+insert into text
+values(1123,'Poetry vol 0','OML','Yahya Bootwaala');
+
+insert into ENROLL
+values('123',1101,1,1234);
+insert into ENROLL
+values('123',1102,2,5678);
+insert into ENROLL
+values('456',1101,3,4123);
+insert into ENROLL
+values('456',2201,4,9012);
+insert into ENROLL
+values('789',3301,5,7890);
+insert into ENROLL
+values('789',3302,6,1123);
+insert into ENROLL
+values('101',3302,7,7890);
+insert into ENROLL
+values('567',2201,8,9012);
+insert into ENROLL
+values('890',2202,1,3456);
+
+insert into BOOK_ADOPTION
+values(1101,1,1234);
+insert into BOOK_ADOPTION
+values(1102,2,4123);
+insert into BOOK_ADOPTION
+values(1102,2,5678);
+insert into BOOK_ADOPTION
+values(2201,3,9012);
+insert into BOOK_ADOPTION
+values(2202,4,3456);
+insert into BOOK_ADOPTION
+values(3301,5,7890);
+insert into BOOK_ADOPTION
+values(3302,6,1123);
+
+SQL> select * from STUDENT;
+
+REGNO      NAME                           MAJOR                BDATE
+---------- ------------------------------ -------------------- ---------
+123        Pavit                          CCE                  13-APR-06
+456        Akhil                          CCE                  17-SEP-05
+789        Bhavya                         Environment          01-JAN-23
+101        Akash                          Environment          23-SEP-04
+567        Ishaan                         CSE                  07-DEC-03
+890        Ashwin                         CSE                  25-FEB-04
+234        Gokul                          CCE                  12-FEB-24
+
+7 rows selected.
+
+SQL> select * from COURSE;
+
+   COURSE# CNAME                          DEPT
+---------- ------------------------------ ------------------------------
+      1101 DBMS                           ICT
+      1102 DAA                            ICT
+      2201 COA                            CS
+      2202 DSD                            CS
+      3301 MATH                           EVS
+      3302 POETRY                         EVS
+      3303 Random                         EVS
+
+7 rows selected.
+
+SQL> select * from ENROLL;
+
+REGNO                   COURSE#        SEM  BOOK_ISBN
+-------------------- ---------- ---------- ----------
+123                        1101          1       1234
+123                        1102          2       5678
+456                        1101          3       4123
+456                        2201          4       9012
+789                        3301          5       7890
+789                        3302          6       1123
+101                        3302          7       7890
+567                        2201          8       9012
+890                        2202          1       3456
+
+9 rows selected.
+
+SQL> select * from BOOK_ADOPTION;
+
+   COURSE#        SEM  BOOK_ISBN
+---------- ---------- ----------
+      1101          1       1234
+      1102          2       4123
+      1102          2       5678
+      2201          3       9012
+      2202          4       3456
+      3301          5       7890
+      3302          6       1123
+
+7 rows selected.
+
+SQL> select * from TEXT;
+
+ BOOK_ISBN BOOKTITLE            PUBLISHER            AUTHOR
+---------- -------------------- -------------------- --------------------
+      1234 DBMS vol 1           Pearson              SS
+      4123 DBMS vol 2           Pearson              SS
+      5678 DAA vol 2            Pearson              Ramanujan
+      9012 COA vol 666          Cengage              Satan
+      3456 DSD vol 99           Penguin              Panda
+      7890 Math vol 66          Cengage              R S Aggrwal
+      1123 Poetry vol 0         OML                  Yahya Bootwaala
+
+7 rows selected.
+
+select cname,count(course#) as num_of_Text_Books
+      from course natural join book_adoption
+      group by cname
+      having count(course#) > 1;
+
+CNAME                          NUM_OF_TEXT_BOOKS
+------------------------------ -----------------
+DAA                                            2
+
+select distinct dept
+from course
+where not exists(
+select *
+from text natural join book_adoption
+where book_adoption.course# = course.course#
+and publisher!='Pearson');
+
+DEPT
+------------------------------
+EVS
+ICT
+
+select name
+from student
+where regno in(
+select regno
+from enroll natural join course
+group by regno
+having count(distinct dept)>1);
+
+NAME
+------------------------------
+Akhil
+
+select regno,name
+from student
+where not exists(
+select regno from enroll
+where student.regno=enroll.regno);
+
+REGNO      NAME
+---------- ------------------------------
+234        Gokul
+
+SQL>  select distinct dept
+  2      from course natural join Book_Adoption
+  3      where book_isbn not in
+  4      (select book_isbn
+  5      from course natural join book_adoption join text using(book_isbn)
+  6      where publisher !='Pearson'
+  7      );
+
+DEPT
+------------------------------
+ICT
+
+select booktitle 
+from text
+where book_isbn in
+(
+	select distinct book_isbn
+from book_adoption join enroll using(book_isbn)
+);
+
+
+BOOKTITLE
+--------------------
+DBMS vol 1
+DBMS vol 2
+DAA vol 2
+COA vol 666
+DSD vol 99
+Math vol 66
+Poetry vol 0
+
+7 rows selected.
+
+select course#,cname 
+from text natural join book_adoption join course using(course#)
+where publisher='Pearson'
+group by (course#,cname)
+having count(book_isbn)>=2;
+
+   COURSE# CNAME
+---------- ------------------------------
+      1102 DAA
+
+select regno,name,count(book_isbn)
+from enroll natural join student
+group by regno,name having count(book_isbn)>= all
+(select count(book_isbn)
+from enroll natural join student
+group by regno);
+
+REGNO      NAME                           COUNT(BOOK_ISBN)
+---------- ------------------------------ ----------------
+456        Akhil                                         2
+789        Bhavya                                        2
+123        Pavit                                         2
+
+select publisher,count(book_isbn)
+from (select * from text)
+group by publisher;
+
+PUBLISHER            COUNT(BOOK_ISBN)
+-------------------- ----------------
+Penguin                             1
+Cengage                             2
+OML                                 1
+Pearson                             3
+
+select distinct regno
+from enroll natural join student
+where exists
+(select book_isbn
+from book_adoption
+where book_adoption.course#=enroll.course#);
+
+REGNO
+--------------------
+456
+101
+890
+123
+567
+789
+
+6 rows selected.
