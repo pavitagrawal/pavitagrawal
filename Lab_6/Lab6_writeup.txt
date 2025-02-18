@@ -1,0 +1,131 @@
+//1. Create a function to return total number of accidents happened in a particular year.
+
+CREATE OR REPLACE FUNCTION get_accidents_py(p_year IN NUMBER) 
+RETURN NUMBER 
+IS
+  total_accidents NUMBER;
+BEGIN
+  SELECT COUNT(*)
+  INTO total_accidents
+  FROM Accident
+  WHERE EXTRACT(YEAR FROM ACCD_DATE) = p_year;
+  RETURN total_accidents;
+END;
+/
+
+SQL> SELECT get_accidents_py(2008) FROM DUAL;
+
+GET_ACCIDENTS_PY(2008)
+----------------------
+                     3
+
+//2. Create a procedure to display total damage caused due to an accident for a particular driver on a specific year.
+
+CREATE OR REPLACE PROCEDURE tot_damage
+    (driver IN VARCHAR2, year IN NUMBER) IS
+    damage NUMBER := 0;
+BEGIN
+    SELECT NVL(SUM(pa.DAMAGE_AMOUNT), 0) INTO damage
+    FROM participated pa
+    JOIN accident ac ON pa.REPORT_NUMBER = ac.REPORT_NUMBER
+    WHERE pa.DRIVER_ID# = driver
+      AND EXTRACT(YEAR FROM ac.ACCD_DATE) = year;
+
+    DBMS_OUTPUT.PUT_LINE('Total damage: ' || damage);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No data found for the given driver and year.');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);
+END;
+/
+
+BEGIN
+    get_total_damage('UP-003', 2008);
+END;
+/
+
+PL/SQL procedure successfully completed.
+
+//3. Create a procedure to display accident information which took place in a particular location.
+
+CREATE OR REPLACE PROCEDURE display_accident_info(location_name IN VARCHAR2) 
+IS
+  CURSOR accident_cursor IS
+    SELECT report_number, accd_date, location
+    FROM ACCIDENT
+    WHERE location = location_name;
+BEGIN
+  FOR accident_record IN accident_cursor LOOP
+    DBMS_OUTPUT.PUT_LINE('Report Number: ' || accident_record.report_number);
+    DBMS_OUTPUT.PUT_LINE('Accident Date: ' || accident_record.accd_date);
+    DBMS_OUTPUT.PUT_LINE('Location: ' || accident_record.location);
+  END LOOP;
+END;
+/
+
+BEGIN
+    get_accidents_by_location('Haldwani');
+END;
+/
+
+PL/SQL procedure successfully completed.
+
+//4. Create a procedure to identify all drivers who have never been involved in any accidents. The procedure should return their driver-id, name, and address.
+
+CREATE OR REPLACE PROCEDURE get_drivers_not_involved_in_accidents
+IS
+    v_count NUMBER := 0;  
+BEGIN
+    FOR rec IN
+    (
+        SELECT DRIVER_ID, NAME, ADDRESS
+        FROM Person  
+        WHERE DRIVER_ID NOT IN (SELECT DRIVER_ID FROM Participated)  
+    )
+    LOOP
+        DBMS_OUTPUT.PUT_LINE('Driver ID: ' || rec.DRIVER_ID ||
+                             ', Name: ' || rec.NAME ||
+                             ', Address: ' || rec.ADDRESS);
+        v_count := v_count + 1; 
+    END LOOP;
+
+    IF v_count = 0 THEN
+        DBMS_OUTPUT.PUT_LINE('No drivers found who have never been involved in any accidents.');
+    END IF;
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);
+END get_drivers_not_involved_in_accidents;
+/
+
+
+
+BEGIN
+    get_drivers_not_involved_in_accidents;
+END;
+/
+
+PL/SQL procedure successfully completed.
+
+//5. Write a function that takes a license as input and returns the total number of accidents in which the car was involved.
+
+CREATE OR REPLACE FUNCTION get_total_accidents_by_license(license IN VARCHAR2) 
+RETURN INT 
+IS
+  total_accidents INT;
+BEGIN
+  SELECT COUNT(*)
+  INTO total_accidents
+  FROM PARTICIPATED
+  WHERE regno = license;
+  
+  RETURN total_accidents;
+END;
+/
+
+SQL> SELECT get_total_accidents_by_license('230953410') FROM DUAL;
+
+GET_TOTAL_ACCIDENTS_BY_LICENSE('230953410')
+-------------------------------------------
+                                          3

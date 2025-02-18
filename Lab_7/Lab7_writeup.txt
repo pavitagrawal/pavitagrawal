@@ -1,0 +1,146 @@
+//1. Generate a trigger displaying driver information, on participating in an accident.
+
+CREATE OR REPLACE TRIGGER display_driver_info
+AFTER INSERT ON PARTICIPATED
+FOR EACH ROW
+DECLARE
+  driver_name PERSON.name%TYPE;
+  driver_address PERSON.address%TYPE;
+BEGIN
+  SELECT name, address INTO driver_name, driver_address
+  FROM PERSON
+  WHERE driver_id = :NEW.driver_id;
+  
+  DBMS_OUTPUT.PUT_LINE('Driver ID: ' || :NEW.driver_id);
+  DBMS_OUTPUT.PUT_LINE('Driver Name: ' || driver_name);
+  DBMS_OUTPUT.PUT_LINE('Driver Address: ' || driver_address);
+  DBMS_OUTPUT.PUT_LINE('Accident Report Number: ' || :NEW.report_number);
+  DBMS_OUTPUT.PUT_LINE('Car Registration Number: ' || :NEW.regno);
+  DBMS_OUTPUT.PUT_LINE('Damage Amount: ' || :NEW.damage_amount);
+END;
+
+SQL> INSERT INTO participated (DRIVER_ID#, REGNO, REPORT_NUMBER, DAMAGE_AMOUNT)
+  2  VALUES (1235, 'EFGH2001', 3, 5000);
+Driver ID: 1235
+Driver Name: Rohit
+Driver Address: Banglalore India
+Car Registration Number: EFGH2001
+Report Number: 3
+Damage Amount: 5000
+Driver_id: 1235 Name: Rohit Address: Banglalore India
+
+1 row created.
+
+//2. Create a trigger that updates a total_damage column in the accident table whenever a new entry is added to or removed from the participated table.
+
+ALTER TABLE ACCIDENT ADD total_damage INT DEFAULT 0;
+
+
+CREATE OR REPLACE TRIGGER update_total_damage
+AFTER INSERT OR DELETE ON PARTICIPATED
+FOR EACH ROW
+BEGIN
+  IF INSERTING THEN
+    UPDATE ACCIDENT
+    SET total_damage = total_damage + :NEW.damage_amount
+    WHERE report_number = :NEW.report_number;
+  ELSIF DELETING THEN
+    UPDATE ACCIDENT
+    SET total_damage = total_damage - :OLD.damage_amount
+    WHERE report_number = :OLD.report_number;
+  END IF;
+END;
+/
+
+SQL> INSERT INTO
+        PARTICIPATED (driver_id#, regno, report_number, damage_amount)
+      VALUES
+        ('1235', 'EFGH2001', 1, 5000);
+Driver_id: 1235 Name: Rohit Address: Banglalore India
+
+1 row created.
+
+SQL> SELECT
+        report_number,
+        total_damage
+      FROM ACCIDENT
+      WHERE
+        report_number = 1;
+
+REPORT_NUMBER TOTAL_DAMAGE
+------------- ------------
+            1        15000
+Test case with Deletion:
+
+SQL> DELETE FROM PARTICIPATED
+      WHERE
+        driver_id# = '1235'
+        AND regno = 'EFGH2001'
+        AND report_number = 1;
+
+1 row deleted.
+
+SQL> SELECT
+        report_number,
+        total_damage
+      FROM ACCIDENT
+      WHERE
+        report_number = 1;
+
+REPORT_NUMBER TOTAL_DAMAGE
+------------- ------------
+            1        10000
+
+//3. List cars involved in accidents with cumulative damage exceeding a specific amount.
+
+SELECT
+          p.driver_id,
+          o.regno,
+          SUM(pa.damage_amount) AS total_damage
+      FROM
+          PARTICIPATED pa
+      JOIN
+          OWNS o ON pa.driver_id = o.driver_id
+      JOIN
+          PERSON p ON o.driver_id = p.driver_id
+      GROUP BY
+          p.driver_id, o.regno
+      HAVING
+          SUM(pa.damage_amount) > 10000;
+
+DRIVER_ID                      REGNO                TOTAL_DAMAGE
+------------------------------ -------------------- ------------
+UP-003                         230953410                  125000
+UP-004                         230953412                   25000
+UP-005                         230953414                   30000
+UP-002                         230953408                   20000
+
+//4. Identify cars that have been involved in more than one accident and calculate the total damage for each car.
+
+SELECT p.regno, COUNT(p.report_number) AS number_of_accidents, SUM(p.damage_amount) AS total_damage
+FROM PARTICIPATED p
+GROUP BY p.regno
+HAVING COUNT(p.report_number) > 1;
+
+
+REGNO                NUMBER_OF_ACCIDENTS TOTAL_DAMAGE
+-------------------- ------------------- ------------
+230953410                              3       125000
+
+//5. Calculate the average damage amount for accidents at each location.
+
+SELECT a.location, AVG(p.damage_amount) AS average_damage
+FROM ACCIDENT a, PARTICIPATED p
+WHERE a.report_number = p.report_number
+GROUP BY a.location;
+
+LOCATION                                           AVERAGE_DAMAGE
+-------------------------------------------------- --------------
+Pune                                                        25000
+Rampur                                                      20000
+Mangalore                                                   20000
+Goa                                                         30000
+Faridabad                                                   30000
+Haldwani                                                    75000
+
+6 rows selected.
