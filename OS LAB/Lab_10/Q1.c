@@ -1,106 +1,151 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h> // For sleep()
 
-void printFrames(int frames[], int n) {
-    for (int i = 0; i < n; i++)
-        printf("%d ", (frames[i] != -1) ? frames[i] : -1);
-    printf("\n");
-}
+// Function for FIFO Page Replacement
+void fifoPageReplacement(int pages[], int numPages, int numFrames) {
+    int *frames = (int *)malloc(numFrames * sizeof(int));
+    int pageFaults = 0, pageHits = 0, current = 0;
 
-// FIFO Page Replacement Algorithm
-void fifo(int pages[], int np, int nf) {
-    int *frames = (int *)malloc(nf * sizeof(int));
-    int faults = 0, front = 0;
+    for (int i = 0; i < numFrames; i++) {
+        frames[i] = -1; // Initialize frames as empty (-1)
+    }
 
-    for (int i = 0; i < nf; i++)
-        frames[i] = -1;
-
-    printf("\nFIFO Page Replacement:\n");
-    
-    for (int i = 0; i < np; i++) {
+    for (int i = 0; i < numPages; i++) {
         int found = 0;
-        for (int j = 0; j < nf; j++) {
+
+        // Simulate processing delay for user experience
+        printf("\nProcessing page %d...\n", pages[i]);
+        sleep(1); // 1-second delay to simulate "working" feel
+
+        // Check for page hit
+        for (int j = 0; j < numFrames; j++) {
             if (frames[j] == pages[i]) {
-                found = 1;
+                found = 1; // Page hit
+                pageHits++;
                 break;
             }
         }
 
         if (!found) { // Page fault
-            frames[front] = pages[i];
-            front = (front + 1) % nf;
-            faults++;
+            frames[current] = pages[i];
+            current = (current + 1) % numFrames; // FIFO replacement
+            pageFaults++;
         }
 
-        printFrames(frames, nf);
+        // Display frame status
+        printf("Page %d: %s\n", pages[i], found ? "Hit" : "Fault");
+        printf("Frame status: ");
+        for (int j = 0; j < numFrames; j++) {
+            if (frames[j] != -1) {
+                printf("%d ", frames[j]);
+            } else {
+                printf("- ");
+            }
+        }
+        printf("\n");
+        sleep(1); // Additional coolness delay
     }
 
-    printf("Total page faults: %d\n", faults);
+    // Summary of FIFO
+    float faultRate = (float)pageFaults / numPages * 100;
+    printf("\nFIFO Summary:\n");
+    printf("Total Page Faults: %d\n", pageFaults);
+    printf("Total Page Hits: %d\n", pageHits);
+    printf("Page Fault Rate: %.2f%%\n", faultRate);
     free(frames);
 }
 
-// Optimal Page Replacement Algorithm
-void optimal(int pages[], int np, int nf) {
-    int *frames = (int *)malloc(nf * sizeof(int));
-    int faults = 0;
+// Function for Optimal Page Replacement
+void optimalPageReplacement(int pages[], int numPages, int numFrames) {
+    int *frames = (int *)malloc(numFrames * sizeof(int));
+    int pageFaults = 0, pageHits = 0;
 
-    for (int i = 0; i < nf; i++)
-        frames[i] = -1;
+    for (int i = 0; i < numFrames; i++) {
+        frames[i] = -1; // Initialize frames as empty (-1)
+    }
 
-    printf("\nOptimal Page Replacement:\n");
+    for (int i = 0; i < numPages; i++) {
+        int found = 0;
 
-    for (int i = 0; i < np; i++) {
-        int found = 0, farthest = -1, replaceIndex = -1;
+        // Simulate processing delay for user experience
+        printf("\nProcessing page %d...\n", pages[i]);
+        sleep(1); // 1-second delay to simulate "working" feel
 
-        for (int j = 0; j < nf; j++) {
+        // Check for page hit
+        for (int j = 0; j < numFrames; j++) {
             if (frames[j] == pages[i]) {
-                found = 1;
+                found = 1; // Page hit
+                pageHits++;
                 break;
             }
         }
 
         if (!found) { // Page fault
-            if (i < nf) {
-                frames[i] = pages[i];
-            } else {
-                for (int j = 0; j < nf; j++) {
-                    int nextUse = np;
-                    for (int k = i + 1; k < np; k++) {
-                        if (frames[j] == pages[k]) {
-                            nextUse = k;
-                            break;
-                        }
-                    }
-                    if (nextUse > farthest) {
-                        farthest = nextUse;
-                        replaceIndex = j;
+            int replaceIndex = -1, farthest = -1;
+            for (int j = 0; j < numFrames; j++) {
+                int futureUse = -1;
+                for (int k = i + 1; k < numPages; k++) {
+                    if (frames[j] == pages[k]) {
+                        futureUse = k;
+                        break;
                     }
                 }
-                frames[replaceIndex] = pages[i];
+                if (futureUse == -1) {
+                    replaceIndex = j; // Not used in future
+                    break;
+                } else if (futureUse > farthest) {
+                    farthest = futureUse;
+                    replaceIndex = j;
+                }
             }
-            faults++;
+            frames[replaceIndex] = pages[i];
+            pageFaults++;
         }
 
-        printFrames(frames, nf);
+        // Display frame status
+        printf("Page %d: %s\n", pages[i], found ? "Hit" : "Fault");
+        printf("Frame status: ");
+        for (int j = 0; j < numFrames; j++) {
+            if (frames[j] != -1) {
+                printf("%d ", frames[j]);
+            } else {
+                printf("- ");
+            }
+        }
+        printf("\n");
+        sleep(1); // Additional coolness delay
     }
 
-    printf("Total page faults: %d\n", faults);
+    // Summary of Optimal
+    float faultRate = (float)pageFaults / numPages * 100;
+    printf("\nOptimal Summary:\n");
+    printf("Total Page Faults: %d\n", pageFaults);
+    printf("Total Page Hits: %d\n", pageHits);
+    printf("Page Fault Rate: %.2f%%\n", faultRate);
     free(frames);
 }
 
 int main() {
-    int np, nf;
+    int numPages, numFrames;
 
-    printf("Enter the number of pages and frames: ");
-    scanf("%d %d", &np, &nf);
+    printf("Enter the number of pages: ");
+    scanf("%d", &numPages);
 
-    int *pages = (int *)malloc(np * sizeof(int));
-    printf("Enter the page sequence: ");
-    for (int i = 0; i < np; i++)
+    int *pages = (int *)malloc(numPages * sizeof(int));
+    printf("Enter the page reference string:\n");
+    for (int i = 0; i < numPages; i++) {
         scanf("%d", &pages[i]);
+    }
 
-    fifo(pages, np, nf);
-    optimal(pages, np, nf);
+    printf("Enter the number of frames: ");
+    scanf("%d", &numFrames);
+
+    printf("\n--- FIFO Page Replacement ---\n");
+    fifoPageReplacement(pages, numPages, numFrames);
+
+    printf("\n--- Optimal Page Replacement ---\n");
+    optimalPageReplacement(pages, numPages, numFrames);
 
     free(pages);
     return 0;
