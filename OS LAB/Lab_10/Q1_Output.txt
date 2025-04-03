@@ -1,0 +1,107 @@
+--- FIFO Page Replacement ---
+Processing page 7...
+Page 7: Fault
+Frame status: 7 - - 
+
+Processing page 0...
+Page 0: Fault
+Frame status: 7 0 - 
+
+Processing page 1...
+Page 1: Fault
+Frame status: 7 0 1 
+
+Processing page 2...
+Page 2: Fault
+Frame status: 2 0 1 
+
+Processing page 0...
+Page 0: Hit
+Frame status: 2 0 1 
+
+Processing page 3...
+Page 3: Fault
+Frame status: 2 3 1 
+
+Processing page 4...
+Page 4: Fault
+Frame status: 2 3 4 
+
+Processing page 2...
+Page 2: Hit
+Frame status: 2 3 4 
+
+Processing page 3...
+Page 3: Hit
+Frame status: 2 3 4 
+
+Processing page 0...
+Page 0: Fault
+Frame status: 0 3 4 
+
+Processing page 3...
+Page 3: Hit
+Frame status: 0 3 4 
+
+Processing page 2...
+Page 2: Fault
+Frame status: 0 2 4 
+
+FIFO Summary:
+Total Page Faults: 8
+Total Page Hits: 4
+Page Fault Rate: 66.67%
+
+--- Optimal Page Replacement ---
+Processing page 7...
+Page 7: Fault
+Frame status: 7 - - 
+
+Processing page 0...
+Page 0: Fault
+Frame status: 7 0 - 
+
+Processing page 1...
+Page 1: Fault
+Frame status: 7 0 1 
+
+Processing page 2...
+Page 2: Fault
+Frame status: 2 0 1 
+
+Processing page 0...
+Page 0: Hit
+Frame status: 2 0 1 
+
+Processing page 3...
+Page 3: Fault
+Frame status: 3 0 1 
+
+Processing page 4...
+Page 4: Fault
+Frame status: 3 0 4 
+
+Processing page 2...
+Page 2: Fault
+Frame status: 3 2 4 
+
+Processing page 3...
+Page 3: Hit
+Frame status: 3 2 4 
+
+Processing page 0...
+Page 0: Fault
+Frame status: 0 2 4 
+
+Processing page 3...
+Page 3: Fault
+Frame status: 0 3 4 
+
+Processing page 2...
+Page 2: Hit
+Frame status: 0 3 2 
+
+Optimal Summary:
+Total Page Faults: 8
+Total Page Hits: 4
+Page Fault Rate: 66.67%
