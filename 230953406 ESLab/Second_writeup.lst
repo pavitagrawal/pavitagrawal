@@ -1,0 +1,92 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA, READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         __Vectors
+    4 00000000 10001000        DCD              0x10001000
+    5 00000004 00000000        DCD              Reset_Handler
+    6 00000008                 ALIGN
+    7 00000008                 AREA             mycode, CODE, READONLY
+    8 00000000                 ENTRY
+    9 00000000                 EXPORT           Reset_Handler
+   10 00000000         Reset_Handler
+   11 00000000 4804            LDR              R0, =SRC
+   12 00000002 6801            LDR              R1, [R0]
+   13 00000004 E7FE    STOP    B                STOP
+   14 00000006 00 00 12345678 
+              ABCDEF55 
+              00000055 SRC     DCD              0x12345678, 0xABCDEF55, 0x55
+   15 00000014                 END
+              00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=Second_w
+riteup.d -oSecond_writeup.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include 
+-IC:\Keil\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=Second_writeup
+.lst Second_writeup.asm
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file Second_writeup.asm
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 3 in file Second_writeup.asm
+   Uses
+      At line 2 in file Second_writeup.asm
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 10 in file Second_writeup.asm
+   Uses
+      At line 5 in file Second_writeup.asm
+      At line 9 in file Second_writeup.asm
+
+SRC 00000008
+
+Symbol: SRC
+   Definitions
+      At line 14 in file Second_writeup.asm
+   Uses
+      At line 11 in file Second_writeup.asm
+Comment: SRC used once
+STOP 00000004
+
+Symbol: STOP
+   Definitions
+      At line 13 in file Second_writeup.asm
+   Uses
+      At line 13 in file Second_writeup.asm
+Comment: STOP used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 7 in file Second_writeup.asm
+   Uses
+      None
+Comment: mycode unused
+4 symbols
+339 symbols in table
