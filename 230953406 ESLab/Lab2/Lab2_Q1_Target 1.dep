@@ -1,0 +1,2 @@
+Dependencies for Project 'Lab2_Q1', Target 'Target 1': (DO NOT MODIFY !)
+F (.\Lab2_Q1_writeup4.asm)(0x688B10B5)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\NXP\LPC17xx --list "Lab2_Q1_writeup4.lst" --xref -o "Lab2_Q1_writeup4.o" --depend "Lab2_Q1_writeup4.d")
