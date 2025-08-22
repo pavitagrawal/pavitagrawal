@@ -1,0 +1,144 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA, READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         __Vectors
+    4 00000000 10001000        DCD              0x10001000
+    5 00000004 00000000        DCD              Reset_Handler
+    6 00000008                 ALIGN
+    7 00000008                 AREA             mycode, CODE, READONLY
+    8 00000000                 ENTRY
+    9 00000000                 EXPORT           Reset_Handler
+   10 00000000         Reset_Handler
+   11 00000000 4811            LDR              R0, =SRC
+   12 00000002 F04F 030A       MOV              R3, #10
+   13 00000006         Up
+   14 00000006 F850 1B04       LDR              R1, [R0], #4
+   15 0000000A 1852            ADDS             R2, R1
+   16 0000000C F145 0500       ADC              R5, #0
+   17 00000010 3B01            SUBS             R3, #1
+   18 00000012 D1F8            BNE              Up
+   19 00000014 4C0D            LDR              R4, =DST
+   20 00000016 F844 2B04       STR              R2, [R4], #4
+   21 0000001A 6025            STR              R5, [R4]
+   22 0000001C E7FE    STOP    B                STOP
+   23 0000001E 00 00 12345678 
+              ABCDEF01 
+              87654321 
+              FEDCBA98 
+              0123ABCD 
+              EF012345 
+              98765432 
+              321FEDCB 
+              56789ABC 
+              CBA98765 SRC     DCD              0x12345678, 0xABCDEF01, 0x87654
+321, 0xFEDCBA98, 0x0123ABCD, 0xEF012345, 0x98765432, 0x321FEDCB, 0x56789ABC, 0x
+CBA98765
+   24 00000048 00000000 
+              00000000         AREA             mydata, DATA, READWRITE
+   25 00000000 00000000 
+                       DST     DCD              0
+   26 00000004                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=Lab3_Q1w
+riteup.d -oLab3_Q1writeup.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include 
+-IC:\Keil\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=Lab3_Q1writeup
+.lst Lab3_Q1writeup.asm
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file Lab3_Q1writeup.asm
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 3 in file Lab3_Q1writeup.asm
+   Uses
+      At line 2 in file Lab3_Q1writeup.asm
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 10 in file Lab3_Q1writeup.asm
+   Uses
+      At line 5 in file Lab3_Q1writeup.asm
+      At line 9 in file Lab3_Q1writeup.asm
+
+SRC 00000020
+
+Symbol: SRC
+   Definitions
+      At line 23 in file Lab3_Q1writeup.asm
+   Uses
+      At line 11 in file Lab3_Q1writeup.asm
+Comment: SRC used once
+STOP 0000001C
+
+Symbol: STOP
+   Definitions
+      At line 22 in file Lab3_Q1writeup.asm
+   Uses
+      At line 22 in file Lab3_Q1writeup.asm
+Comment: STOP used once
+Up 00000006
+
+Symbol: Up
+   Definitions
+      At line 13 in file Lab3_Q1writeup.asm
+   Uses
+      At line 18 in file Lab3_Q1writeup.asm
+Comment: Up used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 7 in file Lab3_Q1writeup.asm
+   Uses
+      None
+Comment: mycode unused
+5 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DST 00000000
+
+Symbol: DST
+   Definitions
+      At line 25 in file Lab3_Q1writeup.asm
+   Uses
+      At line 19 in file Lab3_Q1writeup.asm
+Comment: DST used once
+mydata 00000000
+
+Symbol: mydata
+   Definitions
+      At line 24 in file Lab3_Q1writeup.asm
+   Uses
+      None
+Comment: mydata unused
+2 symbols
+342 symbols in table

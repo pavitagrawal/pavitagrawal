@@ -1,0 +1,154 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA, READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         __Vectors
+    4 00000000 10001000        DCD              0x10001000
+    5 00000004 00000000        DCD              Reset_Handler
+    6 00000008                 ALIGN
+    7 00000008                 AREA             mycode, CODE, READONLY
+    8 00000000                 ENTRY
+    9 00000000                 EXPORT           Reset_Handler
+   10 00000000         Reset_Handler
+   11 00000000 4805            LDR              R0, =NUM1
+   12 00000002 4906            LDR              R1, =NUM2
+   13 00000004 6802            LDR              R2, [R0]
+   14 00000006 680B            LDR              R3, [R1]
+   15 00000008         Up
+   16 00000008 429A            CMP              R2, R3
+   17 0000000A D003            BEQ              Down
+   18 0000000C BF54 1AD2       SUBPL            R2, R3
+   19 00000010 1A9B            SUBMI            R3, R2
+   20 00000012 D1F9            BNE              Up
+   21 00000014         Down
+   22 00000014 461A            MOV              R2, R3
+   23 00000016 E7FE    STOP    B                STOP
+   24 00000018         
+   25 00000018 00000000 
+              00000000         AREA             mydata, DATA, READWRITE
+   26 00000000 00000064 
+                       NUM1    DCD              0x64
+   27 00000004 00000008 
+                       NUM2    DCD              0x08
+   28 00000008 00000000 
+                       GCD     DCD              0
+   29 0000000C                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=Lab4_Q1w
+riteup2.d -oLab4_Q1writeup2.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Includ
+e -IC:\Keil\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=Lab4_Q1write
+up2.lst Lab4_Q1writeup2.asm
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file Lab4_Q1writeup2.asm
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 3 in file Lab4_Q1writeup2.asm
+   Uses
+      At line 2 in file Lab4_Q1writeup2.asm
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Down 00000014
+
+Symbol: Down
+   Definitions
+      At line 21 in file Lab4_Q1writeup2.asm
+   Uses
+      At line 17 in file Lab4_Q1writeup2.asm
+Comment: Down used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 10 in file Lab4_Q1writeup2.asm
+   Uses
+      At line 5 in file Lab4_Q1writeup2.asm
+      At line 9 in file Lab4_Q1writeup2.asm
+
+STOP 00000016
+
+Symbol: STOP
+   Definitions
+      At line 23 in file Lab4_Q1writeup2.asm
+   Uses
+      At line 23 in file Lab4_Q1writeup2.asm
+Comment: STOP used once
+Up 00000008
+
+Symbol: Up
+   Definitions
+      At line 15 in file Lab4_Q1writeup2.asm
+   Uses
+      At line 20 in file Lab4_Q1writeup2.asm
+Comment: Up used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 7 in file Lab4_Q1writeup2.asm
+   Uses
+      None
+Comment: mycode unused
+5 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+GCD 00000008
+
+Symbol: GCD
+   Definitions
+      At line 28 in file Lab4_Q1writeup2.asm
+   Uses
+      None
+Comment: GCD unused
+NUM1 00000000
+
+Symbol: NUM1
+   Definitions
+      At line 26 in file Lab4_Q1writeup2.asm
+   Uses
+      At line 11 in file Lab4_Q1writeup2.asm
+Comment: NUM1 used once
+NUM2 00000004
+
+Symbol: NUM2
+   Definitions
+      At line 27 in file Lab4_Q1writeup2.asm
+   Uses
+      At line 12 in file Lab4_Q1writeup2.asm
+Comment: NUM2 used once
+mydata 00000000
+
+Symbol: mydata
+   Definitions
+      At line 25 in file Lab4_Q1writeup2.asm
+   Uses
+      None
+Comment: mydata unused
+4 symbols
+344 symbols in table

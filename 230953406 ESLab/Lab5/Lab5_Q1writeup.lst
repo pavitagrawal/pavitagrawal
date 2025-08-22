@@ -1,0 +1,213 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA, READONLY 
+                                                            ;Insertion Sort
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         __Vectors
+    4 00000000 10001000        DCD              0x10001000
+    5 00000004 00000000        DCD              Reset_Handler
+    6 00000008                 ALIGN
+    7 00000008                 AREA             mycode, CODE, READONLY
+    8 00000000                 ENTRY
+    9 00000000                 EXPORT           Reset_Handler
+   10 00000000         Reset_Handler
+   11 00000000 4812            LDR              R0, =SRC    ; Load address of S
+                                                            RC array into R0
+   12 00000002 F04F 010A       MOV              R1, #10     ; Array size (N) in
+                                                            to R1
+   13 00000006 F04F 0201       MOV              R2, #1      ; Outer loop counte
+                                                            r 'i' (start from 1
+                                                            , second element)
+   14 0000000A         
+   15 0000000A         OuterLoop
+   16 0000000A 428A            CMP              R2, R1      ; Compare i with N
+   17 0000000C DA1C            BGE              Done        ; If i >= N, sortin
+                                                            g is done
+   18 0000000E EB00 0582       ADD              R5, R0, R2, LSL #2 ; R5 = addre
+                                                            ss of arr[i]
+   19 00000012 682E            LDR              R6, [R5]    ; R6 = key = arr[i]
+                                                            
+   20 00000014 F1A2 0301       SUB              R3, R2, #1  ; R3 = j = i - 1
+   21 00000018         
+   22 00000018         InnerLoop
+   23 00000018 2B00            CMP              R3, #0      ; Compare j with 0
+   24 0000001A DB0E            BLT              InsertKey   ; If j < 0, insert 
+                                                            key at arr[0]
+   25 0000001C EB00 0883       ADD              R8, R0, R3, LSL #2 ; R8 = addre
+                                                            ss of arr[j]
+   26 00000020 F8D8 7000       LDR              R7, [R8]    ; R7 = arr[j]
+   27 00000024 42B7            CMP              R7, R6      ; Compare arr[j] wi
+                                                            th key
+   28 00000026 DD08            BLE              InsertKey   ; If arr[j] <= key,
+                                                             insert key at arr[
+                                                            j+1]
+   29 00000028 EB00 0983       ADD              R9, R0, R3, LSL #2 ; R9 = addre
+                                                            ss of arr[j]
+   30 0000002C EB00 0A83       ADD              R10, R0, R3, LSL #2 ; R10 = add
+                                                            ress of arr[j+1]
+   31 00000030 F8CA 7004       STR              R7, [R10, #4] 
+                                                            ; arr[j+1] = arr[j]
+                                                            
+   32 00000034 F1A3 0301       SUB              R3, R3, #1  ; j--
+   33 00000038 E7EE            B                InnerLoop   ; Continue inner lo
+                                                            op
+   34 0000003A         
+   35 0000003A         InsertKey
+   36 0000003A EB00 0883       ADD              R8, R0, R3, LSL #2 ; R8 = addre
+                                                            ss of arr[j+1]
+   37 0000003E F8C8 6004       STR              R6, [R8, #4] ; arr[j+1] = key
+   38 00000042 F102 0201       ADD              R2, R2, #1  ; i++
+   39 00000046 E7E0            B                OuterLoop   ; Continue outer lo
+                                                            op
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   40 00000048         
+   41 00000048         Done
+   42 00000048 E7FF            B                STOP
+   43 0000004A E7FE    STOP    B                STOP
+   44 0000004C         
+   45 0000004C 00000000        AREA             mydata, DATA, READWRITE
+   46 00000000 000ABCDF 
+              00012345 
+              0000DCEF 
+              00AB1234 
+              00001032 
+              21231223 
+              0023FE1A 
+              00AB564E 
+              00012345 
+              ABCDE123 SRC     DCD              0x00ABCDF, 0x0012345, 0x000DCEF
+, 0x0AB1234, 0x0001032, 0x21231223, 0x0023FE1A, 0x0AB564E, 0x0012345, 0xABCDE12
+3
+   47 00000028                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=Lab5_Q1w
+riteup.d -oLab5_Q1writeup.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include 
+-IC:\Keil\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=Lab5_Q1writeup
+.lst Lab5_Q1writeup.asm
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file Lab5_Q1writeup.asm
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 3 in file Lab5_Q1writeup.asm
+   Uses
+      At line 2 in file Lab5_Q1writeup.asm
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Done 00000048
+
+Symbol: Done
+   Definitions
+      At line 41 in file Lab5_Q1writeup.asm
+   Uses
+      At line 17 in file Lab5_Q1writeup.asm
+Comment: Done used once
+InnerLoop 00000018
+
+Symbol: InnerLoop
+   Definitions
+      At line 22 in file Lab5_Q1writeup.asm
+   Uses
+      At line 33 in file Lab5_Q1writeup.asm
+Comment: InnerLoop used once
+InsertKey 0000003A
+
+Symbol: InsertKey
+   Definitions
+      At line 35 in file Lab5_Q1writeup.asm
+   Uses
+      At line 24 in file Lab5_Q1writeup.asm
+      At line 28 in file Lab5_Q1writeup.asm
+
+OuterLoop 0000000A
+
+Symbol: OuterLoop
+   Definitions
+      At line 15 in file Lab5_Q1writeup.asm
+   Uses
+      At line 39 in file Lab5_Q1writeup.asm
+Comment: OuterLoop used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 10 in file Lab5_Q1writeup.asm
+   Uses
+      At line 5 in file Lab5_Q1writeup.asm
+      At line 9 in file Lab5_Q1writeup.asm
+
+STOP 0000004A
+
+Symbol: STOP
+   Definitions
+      At line 43 in file Lab5_Q1writeup.asm
+   Uses
+      At line 42 in file Lab5_Q1writeup.asm
+      At line 43 in file Lab5_Q1writeup.asm
+
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 7 in file Lab5_Q1writeup.asm
+   Uses
+      None
+Comment: mycode unused
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Relocatable symbols
+
+7 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+SRC 00000000
+
+Symbol: SRC
+   Definitions
+      At line 46 in file Lab5_Q1writeup.asm
+   Uses
+      At line 11 in file Lab5_Q1writeup.asm
+Comment: SRC used once
+mydata 00000000
+
+Symbol: mydata
+   Definitions
+      At line 45 in file Lab5_Q1writeup.asm
+   Uses
+      None
+Comment: mydata unused
+2 symbols
+344 symbols in table
