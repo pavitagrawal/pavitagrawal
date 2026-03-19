@@ -1,0 +1,611 @@
+1------------Date Picker:
+
+import android.app.DatePickerDialog;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Calendar;
+
+public class MainActivity extends AppCompatActivity {
+
+    Button btnDate;
+    TextView textDate;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        btnDate = findViewById(R.id.btnDate);
+        textDate = findViewById(R.id.textDate);
+
+        btnDate.setOnClickListener(v -> {
+
+            Calendar calendar = Calendar.getInstance();
+
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog =
+                    new DatePickerDialog(this,
+                            (view, selectedYear, selectedMonth, selectedDay) -> {
+
+                                textDate.setText(selectedDay + "/" +
+                                        (selectedMonth+1) + "/" +
+                                        selectedYear);
+
+                            }, year, month, day);
+
+            datePickerDialog.show();
+        });
+    }
+}
+
+2--------------TIme Picker
+
+import android.app.TimePickerDialog;
+import java.util.Calendar;
+
+Button btnTime;
+TextView textTime;
+
+btnTime = findViewById(R.id.btnTime);
+textTime = findViewById(R.id.textTime);
+
+btnTime.setOnClickListener(v -> {
+
+    Calendar calendar = Calendar.getInstance();
+
+    int hour = calendar.get(Calendar.HOUR_OF_DAY);
+    int minute = calendar.get(Calendar.MINUTE);
+
+    TimePickerDialog timePickerDialog =
+            new TimePickerDialog(this,
+                    (view, selectedHour, selectedMinute) -> {
+
+                        textTime.setText(selectedHour + ":" + selectedMinute);
+
+                    }, hour, minute, true);
+
+    timePickerDialog.show();
+});
+
+
+3----------------Spinner
+
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    Spinner spinnerWords;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        spinnerWords = findViewById(R.id.spinnerWords);
+
+        String[] words = {"Apple", "Banana", "Mango", "Orange"};
+
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(this,
+                        android.R.layout.simple_spinner_item,
+                        words);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinnerWords.setAdapter(adapter);
+    }
+}
+
+4------------------RadioGroup
+
+RadioGroup radioGroup;
+Button btnSubmit;
+
+radioGroup = findViewById(R.id.radioGroup);
+btnSubmit = findViewById(R.id.btnSubmit);
+
+btnSubmit.setOnClickListener(v -> {
+
+    int selectedId = radioGroup.getCheckedRadioButtonId();
+
+    RadioButton radioButton = findViewById(selectedId);
+
+    String gender = radioButton.getText().toString();
+
+    Toast.makeText(this, gender, Toast.LENGTH_SHORT).show();
+});
+
+
+
+5---------------ADD IMAGE TO SPINNER
+
+Create custom layout for spinner with imageview and textview
+
+Create CustomAdapter------
+
+import android.content.Context;
+import android.view.*;
+import android.widget.*;
+
+public class SpinnerAdapter extends ArrayAdapter<String> {
+
+    Context context;
+    String[] items;
+    int[] images;
+
+    public SpinnerAdapter(Context context, String[] items, int[] images) {
+        super(context, R.layout.spinner_item, items);
+        this.context = context;
+        this.items = items;
+        this.images = images;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.spinner_item, parent, false);
+
+        ImageView image = view.findViewById(R.id.imageView);
+        TextView text = view.findViewById(R.id.textView);
+
+        image.setImageResource(images[position]);
+        text.setText(items[position]);
+
+        return view;
+    }
+
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        return getView(position, convertView, parent);
+    }
+}
+
+Main:------------
+
+import android.os.Bundle;
+import android.widget.Spinner;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    Spinner spinner;
+
+    String[] fruits = {"Apple","Banana","Orange"};
+
+    int[] images = {
+            R.drawable.apple,
+            R.drawable.banana,
+            R.drawable.orange
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        spinner = findViewById(R.id.spinner);
+
+        SpinnerAdapter adapter =
+                new SpinnerAdapter(this, fruits, images);
+
+        spinner.setAdapter(adapter);
+    }
+}
+
+
+6--------------Menu
+
+res->new android directory->menu
+
+menu->menu.xml
+
+
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.menu_settings)
+            Toast.makeText(this,"Settings",Toast.LENGTH_SHORT).show();
+
+        else if(item.getItemId() == R.id.menu_help)
+            Toast.makeText(this,"Help",Toast.LENGTH_SHORT).show();
+
+        else if(item.getItemId() == R.id.menu_exit)
+            finish();
+
+        return true;
+    }
+}
+
+7---------------AppBar
+
+import androidx.appcompat.widget.Toolbar;
+
+Toolbar toolbar;
+
+toolbar = findViewById(R.id.toolbar);
+setSupportActionBar(toolbar);
+
+================
+
+package com.example.appbar;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    Toolbar toolbar;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        toolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.menu_settings)
+        {
+            Toast.makeText(this,"Settings Clicked",Toast.LENGTH_SHORT).show();
+        }
+
+        else if(item.getItemId() == R.id.menu_help)
+        {
+            Toast.makeText(this,"Help Clicked",Toast.LENGTH_SHORT).show();
+        }
+
+        else if(item.getItemId() == R.id.menu_about)
+        {
+            Toast.makeText(this,"About Clicked",Toast.LENGTH_SHORT).show();
+        }
+
+        return true;
+    }
+}
+
+
+8------------Context Menu (Long Press)
+
+Create menu in xml first
+
+
+package com.example.contextmenu;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    TextView textView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        textView = findViewById(R.id.textView);
+
+        registerForContextMenu(textView);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.menu_copy)
+        {
+            Toast.makeText(this,"Copy clicked",Toast.LENGTH_SHORT).show();
+        }
+
+        else if(item.getItemId() == R.id.menu_delete)
+        {
+            Toast.makeText(this,"Delete clicked",Toast.LENGTH_SHORT).show();
+        }
+
+        else if(item.getItemId() == R.id.menu_share)
+        {
+            Toast.makeText(this,"Share clicked",Toast.LENGTH_SHORT).show();
+        }
+
+        return true;
+    }
+}
+
+
+9------------PopUPMENU
+
+Create menu resource
+
+package com.example.popupmenu;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.PopupMenu;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    Button btnMenu;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        btnMenu = findViewById(R.id.btnMenu);
+
+        btnMenu.setOnClickListener(v -> {
+
+            PopupMenu popupMenu = new PopupMenu(MainActivity.this, btnMenu);
+
+            popupMenu.getMenuInflater().inflate(R.menu.popup_menu,
+                    popupMenu.getMenu());
+
+            popupMenu.setOnMenuItemClickListener(item -> {
+
+                if(item.getItemId() == R.id.menu_edit)
+                {
+                    Toast.makeText(MainActivity.this,
+                            "Edit Clicked",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+                else if(item.getItemId() == R.id.menu_delete)
+                {
+                    Toast.makeText(MainActivity.this,
+                            "Delete Clicked",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+                else if(item.getItemId() == R.id.menu_share)
+                {
+                    Toast.makeText(MainActivity.this,
+                            "Share Clicked",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+                return true;
+            });
+
+            popupMenu.show();
+
+        });
+    }
+}
+
+
+10------------------------TabLayout
+
+
+
+
+TABLAYOUT (ANDROID JAVA – SIMPLE VERSION)
+
+STEP 1 — Add dependency (build.gradle Module)
+
+implementation 'com.google.android.material:material:1.9.0'
+implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
+STEP 2 — activity_main.xml
+
+<LinearLayout
+ xmlns:android="http://schemas.android.com/apk/res/android"
+ xmlns:app="http://schemas.android.com/apk/res-auto"
+ android:layout_width="match_parent"
+ android:layout_height="match_parent"
+ android:orientation="vertical">
+
+```
+<com.google.android.material.tabs.TabLayout
+    android:id="@+id/tabLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+
+<androidx.viewpager2.widget.ViewPager2
+    android:id="@+id/viewPager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+```
+
+</LinearLayout>
+
+STEP 3 — fragment_page.xml
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+ android:id="@+id/textPage"
+ android:layout_width="match_parent"
+ android:layout_height="match_parent"
+ android:textSize="22sp"
+ android:gravity="center"/>
+
+STEP 4 — PageFragment.java
+
+import android.os.Bundle;
+import android.view.*;
+import android.widget.TextView;
+import androidx.fragment.app.Fragment;
+
+public class PageFragment extends Fragment {
+
+```
+String text;
+
+public PageFragment(String text){
+    this.text = text;
+}
+
+public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+
+    View view = inflater.inflate(R.layout.fragment_page, container, false);
+
+    TextView t = view.findViewById(R.id.textPage);
+    t.setText(text);
+
+    return view;
+}
+```
+
+}
+
+STEP 5 — PagerAdapter.java
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+public class PagerAdapter extends FragmentStateAdapter {
+
+```
+public PagerAdapter(MainActivity activity){
+    super(activity);
+}
+
+@NonNull
+public Fragment createFragment(int position){
+
+    if(position==0)
+        return new PageFragment("Home Page");
+
+    if(position==1)
+        return new PageFragment("Profile Page");
+
+    return new PageFragment("Settings Page");
+}
+
+public int getItemCount(){
+    return 3;
+}
+```
+
+}
+
+STEP 6 — MainActivity.java
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
+import android.os.Bundle;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
+public class MainActivity extends AppCompatActivity {
+
+```
+TabLayout tabLayout;
+ViewPager2 viewPager;
+
+protected void onCreate(Bundle savedInstanceState) {
+
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    tabLayout = findViewById(R.id.tabLayout);
+    viewPager = findViewById(R.id.viewPager);
+
+    PagerAdapter adapter = new PagerAdapter(this);
+    viewPager.setAdapter(adapter);
+
+    new TabLayoutMediator(tabLayout, viewPager,
+            (tab, position) -> {
+
+                if(position==0)
+                    tab.setText("Home");
+
+                else if(position==1)
+                    tab.setText("Profile");
+
+                else
+                    tab.setText("Settings");
+
+            }).attach();
+}
+```
+
+}
+
+FLOW
+
+TabLayout
+↓
+ViewPager2
+↓
+Adapter
+↓
+Fragments
+
+OUTPUT
+
+[ Home ] [ Profile ] [ Settings ]
+
+Swipe or click tabs to change pages.
+
+

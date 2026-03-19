@@ -1,0 +1,202 @@
+🏗️ PROJECT STRUCTURE
+MainActivity (Menu Hub)
+ ├── FormActivity (ALL INPUTS)
+ ├── ListActivity (List + Grid)
+ ├── ResultActivity (Intent + DatePicker)
+✅ 1. MAIN ACTIVITY (NAVIGATION HUB)
+XML
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button android:id="@+id/formBtn" android:text="Form"/>
+    <Button android:id="@+id/listBtn" android:text="List"/>
+</LinearLayout>
+Java
+public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        findViewById(R.id.formBtn).setOnClickListener(v ->
+                startActivity(new Intent(this, FormActivity.class)));
+
+        findViewById(R.id.listBtn).setOnClickListener(v ->
+                startActivity(new Intent(this, ListActivity.class)));
+    }
+}
+✅ 2. FORM ACTIVITY (🔥 MOST IMPORTANT — 80% QUESTIONS)
+XML
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView android:text="MASTER FORM APP" android:textSize="20sp"/>
+
+    <!-- Spinner -->
+    <Spinner android:id="@+id/spinner"/>
+
+    <!-- Toggle -->
+    <ToggleButton
+        android:id="@+id/toggle"
+        android:textOn="ON"
+        android:textOff="OFF"/>
+
+    <!-- Checkboxes -->
+    <CheckBox android:id="@+id/c1" android:text="Option 1"/>
+    <CheckBox android:id="@+id/c2" android:text="Option 2"/>
+    <CheckBox android:id="@+id/c3" android:text="Option 3"/>
+
+    <!-- Radio -->
+    <RadioGroup android:id="@+id/radioGroup">
+        <RadioButton android:id="@+id/r1" android:text="A"/>
+        <RadioButton android:id="@+id/r2" android:text="B"/>
+    </RadioGroup>
+
+    <Button android:id="@+id/dateBtn" android:text="Pick Date"/>
+    <Button android:id="@+id/submitBtn" android:text="Submit"/>
+    <Button android:id="@+id/clearBtn" android:text="Clear"/>
+
+</LinearLayout>
+</ScrollView>
+Java (🔥 COPY THIS IN EXAM)
+public class FormActivity extends AppCompatActivity {
+
+    Spinner spinner;
+    ToggleButton toggle;
+    CheckBox c1,c2,c3;
+    RadioGroup group;
+    String selectedDate = "";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_form);
+
+        spinner = findViewById(R.id.spinner);
+        toggle = findViewById(R.id.toggle);
+        c1 = findViewById(R.id.c1);
+        c2 = findViewById(R.id.c2);
+        c3 = findViewById(R.id.c3);
+        group = findViewById(R.id.radioGroup);
+
+        // Spinner
+        String[] data = {"One","Two","Three"};
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data);
+        spinner.setAdapter(adapter);
+
+        // Date Picker
+        findViewById(R.id.dateBtn).setOnClickListener(v -> {
+            Calendar cal = Calendar.getInstance();
+
+            DatePickerDialog dp = new DatePickerDialog(this,
+                    (view,y,m,d) -> {
+                        selectedDate = d+"/"+(m+1)+"/"+y;
+                    },
+                    cal.get(Calendar.YEAR),
+                    cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DAY_OF_MONTH));
+
+            dp.show();
+        });
+
+        // Submit
+        findViewById(R.id.submitBtn).setOnClickListener(v -> {
+
+            String spinnerVal = spinner.getSelectedItem().toString();
+            String toggleVal = toggle.isChecked() ? "ON" : "OFF";
+
+            String check = "";
+            if(c1.isChecked()) check += "C1 ";
+            if(c2.isChecked()) check += "C2 ";
+            if(c3.isChecked()) check += "C3 ";
+
+            int id = group.getCheckedRadioButtonId();
+            RadioButton rb = findViewById(id);
+            String radio = (rb != null) ? rb.getText().toString() : "None";
+
+            Intent i = new Intent(this, ResultActivity.class);
+            i.putExtra("data", spinnerVal + " " + toggleVal + " " + check + " " + radio + " " + selectedDate);
+
+            startActivity(i);
+        });
+
+        // Clear
+        findViewById(R.id.clearBtn).setOnClickListener(v -> {
+            c1.setChecked(false);
+            c2.setChecked(false);
+            c3.setChecked(false);
+            group.clearCheck();
+            toggle.setChecked(false);
+        });
+    }
+}
+✅ 3. RESULT ACTIVITY
+XML
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView android:id="@+id/text" android:textSize="18sp"/>
+</LinearLayout>
+Java
+public class ResultActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle b) {
+        super.onCreate(b);
+        setContentView(R.layout.activity_result);
+
+        TextView t = findViewById(R.id.text);
+
+        String data = getIntent().getStringExtra("data");
+        t.setText(data);
+    }
+}
+✅ 4. LIST + GRID (LAB 3)
+public class ListActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle b) {
+        super.onCreate(b);
+        setContentView(R.layout.activity_list);
+
+        ListView list = findViewById(R.id.list);
+        GridView grid = findViewById(R.id.grid);
+
+        String[] arr = {"A","B","C","D"};
+
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arr);
+
+        list.setAdapter(adapter);
+        grid.setAdapter(adapter);
+    }
+}
+✅ 5. MENU (LAB 6 + 7)
+menu.xml
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/m1" android:title="Option 1"/>
+    <item android:id="@+id/m2" android:title="Option 2"/>
+</menu>
+Add in ANY activity
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.menu, menu);
+    return true;
+}
+
+@Override
+public boolean onOptionsItemSelected(MenuItem item) {
+    Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
+    return true;
+}
