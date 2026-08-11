@@ -35,16 +35,16 @@
 
 ## 👋 Hey there, I'm Pavit!
 
-I'm an undergrad at **Manipal Institute of Technology**, currently halfway through my B.Tech in Computer & Communication Engineering — that's the campus where the sea breeze and the deadline pressure hit at the exact same time 🌊. I've learned to call that balance "motivation."
+I'm an undergrad at **Manipal Institute of Technology**, currently halfway through my B.Tech in Computer & Communication Engineering. That's the campus where the sea breeze and the deadline pressure hit at the exact same time 🌊. I've learned to call that balance "motivation."
 
-I love building things that *think* — from **agentic AI backends** and **RAG pipelines** to **ML models** and **cloud-deployed full-stack apps**. When I'm not shipping features, you'll find me in hackathons, doing DSA drills, or trying to make my code run on the first try (rare, but it happens 😌).
+I love building things that *think*, from **agentic AI backends** and **RAG pipelines** to **ML models** and **cloud-deployed full-stack apps**. When I'm not shipping features, you'll find me in hackathons, doing DSA drills, or trying to make my code run on the first try (rare, but it happens 😌).
 
 - 🤖 Building **agentic AI** & **LLM-powered** systems that actually ship
-- 🏆 Hackathon regular — **AWS ImpactX @ IIT Bombay Techfest**, **National Geo AI Hackathon @ Techfest**, **ET AI Hackathon 2.0**
+- 🏆 Hackathon regular: **AWS ImpactX @ IIT Bombay Techfest**, **National Geo AI Hackathon @ Techfest**, and **ET AI Hackathon 2.0**
 - 💼 Interned at **Deloitte** (Control Assurance) and **TransOrg Analytics** (Data Analytics)
-- 🎓 **AWS Cloud Practitioner (CLF-C02)** — Udemy learning complete, certification in the works ☁️
+- 🎓 **AWS Cloud Practitioner (CLF-C02)**: Udemy learning complete, certification in the works ☁️
 - 🧠 DSA & applied programming in Python, C++, and Java
-- 🎯 Open to **internships & full-time roles** in Software Development, Data Science, AI/ML, Backend Engineering, and Cloud — let's build something cool together 🚀
+- 🎯 Open to **internships & full-time roles** in Software Development, Data Science, AI/ML, Backend Engineering, and Cloud. Let's build something cool together 🚀
 - ⚡ When I'm not coding: exploring travel & food spots, chasing sunsets, and occasionally attempting to touch grass 🌿
 
 <p align="center">
@@ -88,47 +88,45 @@ I love building things that *think* — from **agentic AI backends** and **RAG p
 
 ## 🚀 Projects & Hackathons
 
-### 🏭 Agentic AI · Industrial Intelligence
+### 🤖 Agentic AI & Intelligent Systems
 
-**Mnemos — Industrial AI Knowledge Intelligence Platform** *(ET AI Hackathon 2.0)*
-Agentic AI backend built with **Python, FastAPI, and LangGraph** for industrial asset intelligence. It orchestrates multiple agents over a **Hybrid GraphRAG** pipeline (vector + knowledge graph + structured retrieval) with **MCP-based tool integration**, producing evidence-grounded Root Cause Analysis (RCA), compliance validation, and asset insights — all gated behind human-in-the-loop approval workflows.
+**Mnemos: Industrial AI Knowledge Intelligence Platform** *(ET AI Hackathon 2.0)*
+Agentic AI backend built with **Python, FastAPI, and LangGraph** for industrial asset intelligence. It orchestrates multiple agents over a **Hybrid GraphRAG** pipeline (vector + knowledge graph + structured retrieval) with **MCP-based tool integration**, producing evidence-grounded Root Cause Analysis (RCA), compliance validation, and asset insights. All of it is gated behind human-in-the-loop approval workflows.
 - 🔗 **Live:** [mnemos-lake.vercel.app](https://mnemos-lake.vercel.app) · **Code:** [Dhruvg334/Mnemos](https://github.com/Dhruvg334/Mnemos)
 
-### 🔐 AI Security · DevSecOps
+**Civitas: Multimodal Civic Incident Intelligence Platform**
+My most active work in progress, at **35+ commits and counting**. Civitas turns raw citizen reports into **verified, prioritized, and accountable municipal action**. It ingests multimodal inputs (text, images, geotags), then applies **CLIP-style image embeddings** and **geospatial clustering** to detect duplicate reports, scores incidents by **severity and priority**, and routes them through **policy-grounded workflows** to work orders with resolution verification. Built around **Next.js, FastAPI, PostgreSQL/PostGIS, vector search, and LangGraph workflows**, with a planned evaluation dataset so every action stays auditable.
+- 🔗 **Code:** [Dhruvg334/Civitas](https://github.com/Dhruvg334/Civitas)
 
-**A-DAP-T — AI-Agent Safety Scanner** *(Team Project)*
-Deployment-safety review platform built with **Python + FastAPI** that scans AI-agent projects for **prompt-injection risks, exposed secrets, and unsafe tool permissions** before they go live. Ships deterministic release verdicts so teams can ship agents without the anxiety.
+**Daedalus: AI Career Navigator** *(Team Project)*
+Backend services built with **FastAPI, Pydantic, and SQLAlchemy** that deliver deterministic career-fit scoring, skill-gap analysis, and personalized recommendation APIs. It turns "what should I do with my life?" into a well-structured HTTP response.
+- 🔗 **Live:** [daedalus-iota.vercel.app](https://daedalus-iota.vercel.app) · **Code:** [Dhruvg334/Daedalus](https://github.com/Dhruvg334/Daedalus)
+
+### 🛡️ AI Security & Safe Deployment
+
+**A-DAP-T: AI-Agent Safety Scanner** *(Team Project)*
+Deployment-safety review platform built with **Python + FastAPI** that scans AI-agent projects for **prompt-injection risks, exposed secrets, and unsafe tool permissions** before they go live. It ships deterministic release verdicts so teams can deploy agents without the anxiety.
 - 🔗 **Live:** [a-dap-t.vercel.app](https://a-dap-t.vercel.app) · **Code:** [Dhruvg334/a-dap-t](https://github.com/Dhruvg334/a-dap-t)
 
-### 💰 FinTech · Full-Stack Cloud
+### 💻 Full-Stack, Cloud & FinTech
 
 **Bharat Finance Platform** *(AWS ImpactX Hackathon, IIT Bombay Techfest 2025)*
 Production-ready FinTech UI built with **Next.js 15 + React 19**, featuring multilingual support and real-time visualizations, deployed as a scalable cloud application on **AWS**.
 - 🔗 **Live:** [bharat-finance-chms.vercel.app](https://bharat-finance-chms.vercel.app) · **Code:** [pavitagrawal/BHARAT-FINANCE](https://github.com/pavitagrawal/BHARAT-FINANCE)
 
-### 🧭 AI · Career Tech
-
-**Daedalus — AI Career Navigator** *(Team Project)*
-Backend services built with **FastAPI, Pydantic, and SQLAlchemy** that deliver deterministic career-fit scoring, skill-gap analysis, and personalized recommendation APIs — turning "what should I do with my life?" into a well-structured HTTP response.
-- 🔗 **Live:** [daedalus-iota.vercel.app](https://daedalus-iota.vercel.app) · **Code:** [Dhruvg334/Daedalus](https://github.com/Dhruvg334/Daedalus)
-
-### 🎤 AI · Speech & Communication Tech
-
 **AI Speech Persona Builder** *(Personal Project)*
-Full-stack AI speech-coaching platform using **FastAPI, Next.js, and the Gemini API** to analyze spoken language and deliver personalized, actionable feedback — with a scalable typed backend and a polished frontend.
+Full-stack AI speech-coaching platform using **FastAPI, Next.js, and the Gemini API** to analyze spoken language and deliver personalized, actionable feedback, backed by a scalable typed backend and a polished frontend.
 - 🔗 **Live:** [ai-speech-persona-builder.vercel.app](https://ai-speech-persona-builder.vercel.app) · **Code:** [pavitagrawal/ai-speech-persona-builder](https://github.com/pavitagrawal/ai-speech-persona-builder)
 
-### 🗺️ Geospatial AI · ML + GIS
-
-**Hydro-DTM System — GeoGPT** *(National Geo AI Hackathon, IIT Bombay Techfest 2025)*
-End-to-end **Python** pipeline fusing **machine learning with GIS/LiDAR data** to generate high-accuracy Digital Terrain Models — achieving **95%+ classification accuracy** and **90% predictive accuracy** as a standout entry at a national hackathon.
-- 🔗 **Code:** [pavitagrawal/DTM_NatGeo_Project_GeoGPT](https://github.com/pavitagrawal/DTM_NatGeo_Project_GeoGPT)
-
-### 🗄️ Databases · Full-Stack Web
-
 **Online Examination System** *(DBMS Lab Project)*
-Full-stack examination management platform built on **SQL + MySQL** with a clean web interface — covering the complete DBMS lifecycle from schema design to CRUD-heavy workflows and query-driven reporting.
+Full-stack examination management platform built on **SQL + MySQL** with a clean web interface, covering the complete DBMS lifecycle from schema design to CRUD-heavy workflows and query-driven reporting.
 - 🔗 **Code:** [pavitagrawal/Online_Examination_System](https://github.com/pavitagrawal/Online_Examination_System)
+
+### 🗺️ Geospatial AI & Machine Learning
+
+**Hydro-DTM System (GeoGPT)** *(National Geo AI Hackathon, IIT Bombay Techfest 2025)*
+End-to-end **Python** pipeline fusing **machine learning with GIS/LiDAR data** to generate high-accuracy Digital Terrain Models, achieving **95%+ classification accuracy** and **90% predictive accuracy** as a standout entry at a national hackathon.
+- 🔗 **Code:** [pavitagrawal/DTM_NatGeo_Project_GeoGPT](https://github.com/pavitagrawal/DTM_NatGeo_Project_GeoGPT)
 
 <p align="center">
   ✦ &nbsp; ✦ &nbsp; ✦
@@ -139,8 +137,8 @@ Full-stack examination management platform built on **SQL + MySQL** with a clean
 | Repo | What it is | Stack | Links |
 |---|---|---|---|
 | [ai-speech-persona-builder](https://github.com/pavitagrawal/ai-speech-persona-builder) | AI speech-coaching platform with personalized feedback | TypeScript · FastAPI · Next.js · Gemini API | [Live](https://ai-speech-persona-builder.vercel.app) · [Code](https://github.com/pavitagrawal/ai-speech-persona-builder) |
-| [BHARAT-FINANCE](https://github.com/pavitagrawal/BHARAT-FINANCE) | Multilingual FinTech UI — AWS ImpactX Hackathon | Next.js 15 · React 19 · AWS | [Live](https://bharat-finance-chms.vercel.app) · [Code](https://github.com/pavitagrawal/BHARAT-FINANCE) |
-| [DTM_NatGeo_Project_GeoGPT](https://github.com/pavitagrawal/DTM_NatGeo_Project_GeoGPT) | Hydro-DTM pipeline — ML + GIS/LiDAR terrain models | Python · ML · GIS | [Code](https://github.com/pavitagrawal/DTM_NatGeo_Project_GeoGPT) |
+| [BHARAT-FINANCE](https://github.com/pavitagrawal/BHARAT-FINANCE) | Multilingual FinTech UI, AWS ImpactX Hackathon entry | Next.js 15 · React 19 · AWS | [Live](https://bharat-finance-chms.vercel.app) · [Code](https://github.com/pavitagrawal/BHARAT-FINANCE) |
+| [DTM_NatGeo_Project_GeoGPT](https://github.com/pavitagrawal/DTM_NatGeo_Project_GeoGPT) | Hydro-DTM pipeline for ML + GIS/LiDAR terrain models | Python · ML · GIS | [Code](https://github.com/pavitagrawal/DTM_NatGeo_Project_GeoGPT) |
 
 <p align="center">
   ✦ &nbsp; ✦ &nbsp; ✦
@@ -162,8 +160,8 @@ Full-stack examination management platform built on **SQL + MySQL** with a clean
 - **B.Tech, Computer & Communication Engineering** · Manipal Institute of Technology *(2023 – 2027)*
 - **Higher Secondary (Science, PCM)** · Delhi Public School, Indirapuram *(2023)*
 - ☁️ **AWS Cloud Practitioner (CLF-C02)** · Udemy learning complete, certification in the works
-- 📊 **Industrial Data Science Internship** · IIT Guwahati (1stop.ai) — ML & statistical modeling across healthcare, finance & social datasets
-- 🎓 **Data Vista 2024** — Generative AI, RAG & Power BI workshops
+- 📊 **Industrial Data Science Internship** · IIT Guwahati (1stop.ai): ML & statistical modeling across healthcare, finance & social datasets
+- 🎓 **Data Vista 2024**: Generative AI, RAG & Power BI workshops
 
 <p align="center">
   ✦ &nbsp; ✦ &nbsp; ✦
