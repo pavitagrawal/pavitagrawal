@@ -17,7 +17,7 @@
 
 ```
 
-[![Typing SVG](https://readme-typing-svg.demolab.com/?center=true&width=700&height=45&duration=3200&pause=600&lines=Aspiring+Software+Engineer;AI%2FML+%26+Agentic+AI+Enthusiast;Hackathon+Devotee+%F0%9F%8F%86;AWS+Certified+%E2%98%81%EF%B8%8F;DSA+over+Coffee+%E2%98%95;Let%27s+build+something+awesome!&font=Fira+Code&color=F7786B&background=0D1117)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com/?center=true&width=700&height=45&duration=3200&pause=600&lines=Aspiring+Software+Engineer;AI%2FML+%26+Agentic+AI+Enthusiast;Hackathon+Devotee+%F0%9F%8F%86;AWS+Learner+%E2%98%81%EF%B8%8F;DSA+over+Coffee+%E2%98%95;Let%27s+build+something+awesome!&font=Fira+Code&color=F7786B&background=0D1117)](https://git.io/typing-svg)
 
 <a href="https://komarev.com/ghpvc/?username=pavitagrawal">
   <img src="https://komarev.com/ghpvc/?username=pavitagrawal&style=for-the-badge&color=blueviolet&label=PROFILE+VISITS" alt="Profile views"/>
@@ -35,19 +35,21 @@
 
 ## 👋 Hey there, I'm Pavit!
 
-I'm a **Computer & Communication Engineering** undergrad at *Manipal Institute of Technology* (yes, the **other** MIT — the one where we write code *and* survive by the beach 🌊).
+I'm an undergrad at **Manipal Institute of Technology**, currently halfway through my B.Tech in Computer & Communication Engineering — that's the campus where the sea breeze and the deadline pressure hit at the exact same time 🌊. I've learned to call that balance "motivation."
 
 I love building things that *think* — from **agentic AI backends** and **RAG pipelines** to **ML models** and **cloud-deployed full-stack apps**. When I'm not shipping features, you'll find me in hackathons, doing DSA drills, or trying to make my code run on the first try (rare, but it happens 😌).
 
 - 🤖 Building **agentic AI** & **LLM-powered** systems that actually ship
 - 🏆 Hackathon regular — **AWS ImpactX @ IIT Bombay Techfest**, **National Geo AI Hackathon @ Techfest**, **ET AI Hackathon 2.0**
 - 💼 Interned at **Deloitte** (Control Assurance) and **TransOrg Analytics** (Data Analytics)
-- ☁️ **AWS Cloud Practitioner** certified
+- 🎓 **AWS Cloud Practitioner (CLF-C02)** — Udemy learning complete, certification in the works ☁️
 - 🧠 DSA & applied programming in Python, C++, and Java
 - 🎯 Open to **internships & full-time roles** in Software Development, Data Science, AI/ML, Backend Engineering, and Cloud — let's build something cool together 🚀
 - ⚡ When I'm not coding: exploring travel & food spots, chasing sunsets, and occasionally attempting to touch grass 🌿
 
----
+<p align="center">
+  ✦ &nbsp; ✦ &nbsp; ✦
+</p>
 
 ## 🧰 My Tech Stack
 
@@ -80,36 +82,69 @@ I love building things that *think* — from **agentic AI backends** and **RAG p
 
 **Also comfortable with:** SQL/PL/SQL · NLP · Deep Learning · Generative AI · Agentic AI · Prompt Engineering · RAG/GraphRAG · EDA & Data Visualization · DPDP Act & Cybersecurity Controls
 
----
+<p align="center">
+  ✦ &nbsp; ✦ &nbsp; ✦
+</p>
 
 ## 🚀 Projects & Hackathons
 
-### 🏆 Hackathon Highlights
+### 🏭 Agentic AI · Industrial Intelligence
 
-- **Hydro-DTM System** — *National Geo AI Hackathon, IIT Bombay Techfest 2025* 🏅
-  End-to-end Python pipeline fusing ML with GIS/LiDAR data for high-accuracy digital terrain models — **95%+ classification** and **90% predictive accuracy**. A standout entry at a national hackathon.
-  [[Code](https://github.com/pavitagrawal/DTM_NatGeo_Project_GeoGPT)]
-- **Bharat Finance Platform** — *AWS ImpactX Hackathon, IIT Bombay Techfest 2025*
-  Multilingual, production-ready FinTech UI built with Next.js 15 + React 19, deployed on AWS.
-  [[Code](https://github.com/pavitagrawal/BHARAT-FINANCE)] [[Live](https://bharat-finance-chms.vercel.app/)]
-- **Mnemos** — *ET AI Hackathon 2.0*
-  Agentic AI backend (FastAPI + LangGraph) for industrial asset intelligence — multi-agent orchestration, Hybrid GraphRAG, MCP tool integration, evidence-grounded Root Cause Analysis with human-in-the-loop approvals.
-- **Daedalus** — AI Career Navigator: deterministic career-fit scoring & skill-gap APIs (FastAPI, Pydantic, SQLAlchemy).
-- **A-DAP-T** — AI-Agent Safety Scanner: detects prompt-injection risks, exposed secrets & unsafe tool permissions in agent projects.
-- **Shodhak** — Adventure travel platform with Gemini-powered, constraint-based AI itinerary planning.
+**Mnemos — Industrial AI Knowledge Intelligence Platform** *(ET AI Hackathon 2.0)*
+Agentic AI backend built with **Python, FastAPI, and LangGraph** for industrial asset intelligence. It orchestrates multiple agents over a **Hybrid GraphRAG** pipeline (vector + knowledge graph + structured retrieval) with **MCP-based tool integration**, producing evidence-grounded Root Cause Analysis (RCA), compliance validation, and asset insights — all gated behind human-in-the-loop approval workflows.
+- 🔗 **Live:** [mnemos-lake.vercel.app](https://mnemos-lake.vercel.app) · **Code:** [Dhruvg334/Mnemos](https://github.com/Dhruvg334/Mnemos)
 
-### 💻 Notable Repos
+### 🔐 AI Security · DevSecOps
+
+**A-DAP-T — AI-Agent Safety Scanner** *(Team Project)*
+Deployment-safety review platform built with **Python + FastAPI** that scans AI-agent projects for **prompt-injection risks, exposed secrets, and unsafe tool permissions** before they go live. Ships deterministic release verdicts so teams can ship agents without the anxiety.
+- 🔗 **Live:** [a-dap-t.vercel.app](https://a-dap-t.vercel.app) · **Code:** [Dhruvg334/a-dap-t](https://github.com/Dhruvg334/a-dap-t)
+
+### 💰 FinTech · Full-Stack Cloud
+
+**Bharat Finance Platform** *(AWS ImpactX Hackathon, IIT Bombay Techfest 2025)*
+Production-ready FinTech UI built with **Next.js 15 + React 19**, featuring multilingual support and real-time visualizations, deployed as a scalable cloud application on **AWS**.
+- 🔗 **Live:** [bharat-finance-chms.vercel.app](https://bharat-finance-chms.vercel.app) · **Code:** [pavitagrawal/BHARAT-FINANCE](https://github.com/pavitagrawal/BHARAT-FINANCE)
+
+### 🧭 AI · Career Tech
+
+**Daedalus — AI Career Navigator** *(Team Project)*
+Backend services built with **FastAPI, Pydantic, and SQLAlchemy** that deliver deterministic career-fit scoring, skill-gap analysis, and personalized recommendation APIs — turning "what should I do with my life?" into a well-structured HTTP response.
+- 🔗 **Live:** [daedalus-iota.vercel.app](https://daedalus-iota.vercel.app) · **Code:** [Dhruvg334/Daedalus](https://github.com/Dhruvg334/Daedalus)
+
+### 🎤 AI · Speech & Communication Tech
+
+**AI Speech Persona Builder** *(Personal Project)*
+Full-stack AI speech-coaching platform using **FastAPI, Next.js, and the Gemini API** to analyze spoken language and deliver personalized, actionable feedback — with a scalable typed backend and a polished frontend.
+- 🔗 **Live:** [ai-speech-persona-builder.vercel.app](https://ai-speech-persona-builder.vercel.app) · **Code:** [pavitagrawal/ai-speech-persona-builder](https://github.com/pavitagrawal/ai-speech-persona-builder)
+
+### 🗺️ Geospatial AI · ML + GIS
+
+**Hydro-DTM System — GeoGPT** *(National Geo AI Hackathon, IIT Bombay Techfest 2025)*
+End-to-end **Python** pipeline fusing **machine learning with GIS/LiDAR data** to generate high-accuracy Digital Terrain Models — achieving **95%+ classification accuracy** and **90% predictive accuracy** as a standout entry at a national hackathon.
+- 🔗 **Code:** [pavitagrawal/DTM_NatGeo_Project_GeoGPT](https://github.com/pavitagrawal/DTM_NatGeo_Project_GeoGPT)
+
+### 🗄️ Databases · Full-Stack Web
+
+**Online Examination System** *(DBMS Lab Project)*
+Full-stack examination management platform built on **SQL + MySQL** with a clean web interface — covering the complete DBMS lifecycle from schema design to CRUD-heavy workflows and query-driven reporting.
+- 🔗 **Code:** [pavitagrawal/Online_Examination_System](https://github.com/pavitagrawal/Online_Examination_System)
 
 <p align="center">
-  <a href="https://github.com/pavitagrawal/DTM_NatGeo_Project_GeoGPT"><img src="https://github-readme-stats.vercel.app/api/pin/?username=pavitagrawal&repo=DTM_NatGeo_Project_GeoGPT&theme=github_dark&hide_border=true"/></a>
-  <a href="https://github.com/pavitagrawal/ai-speech-persona-builder"><img src="https://github-readme-stats.vercel.app/api/pin/?username=pavitagrawal&repo=ai-speech-persona-builder&theme=github_dark&hide_border=true"/></a>
-  <a href="https://github.com/pavitagrawal/Hate_Speech_Detection"><img src="https://github-readme-stats.vercel.app/api/pin/?username=pavitagrawal&repo=Hate_Speech_Detection&theme=github_dark&hide_border=true"/></a>
-  <a href="https://github.com/pavitagrawal/Heart_Failure_Prediction"><img src="https://github-readme-stats.vercel.app/api/pin/?username=pavitagrawal&repo=Heart_Failure_Prediction&theme=github_dark&hide_border=true"/></a>
-  <a href="https://github.com/pavitagrawal/Credit_EDA"><img src="https://github-readme-stats.vercel.app/api/pin/?username=pavitagrawal&repo=Credit_EDA&theme=github_dark&hide_border=true"/></a>
-  <a href="https://github.com/pavitagrawal/CCE_Labs"><img src="https://github-readme-stats.vercel.app/api/pin/?username=pavitagrawal&repo=CCE_Labs&theme=github_dark&hide_border=true"/></a>
+  ✦ &nbsp; ✦ &nbsp; ✦
 </p>
 
----
+## 📌 Pinned Repos
+
+| Repo | What it is | Stack | Links |
+|---|---|---|---|
+| [ai-speech-persona-builder](https://github.com/pavitagrawal/ai-speech-persona-builder) | AI speech-coaching platform with personalized feedback | TypeScript · FastAPI · Next.js · Gemini API | [Live](https://ai-speech-persona-builder.vercel.app) · [Code](https://github.com/pavitagrawal/ai-speech-persona-builder) |
+| [BHARAT-FINANCE](https://github.com/pavitagrawal/BHARAT-FINANCE) | Multilingual FinTech UI — AWS ImpactX Hackathon | Next.js 15 · React 19 · AWS | [Live](https://bharat-finance-chms.vercel.app) · [Code](https://github.com/pavitagrawal/BHARAT-FINANCE) |
+| [DTM_NatGeo_Project_GeoGPT](https://github.com/pavitagrawal/DTM_NatGeo_Project_GeoGPT) | Hydro-DTM pipeline — ML + GIS/LiDAR terrain models | Python · ML · GIS | [Code](https://github.com/pavitagrawal/DTM_NatGeo_Project_GeoGPT) |
+
+<p align="center">
+  ✦ &nbsp; ✦ &nbsp; ✦
+</p>
 
 ## 💼 Experience
 
@@ -118,28 +153,28 @@ I love building things that *think* — from **agentic AI backends** and **RAG p
 - **Data Analyst Intern** · **TransOrg Analytics** · Gurugram *(May 2025 – Jul 2025)*
   Contributed to an ML-driven fraud detection engine, analyzed sales & margin factors for retail discount optimization, and trained across SQL, Python, Tableau & Power BI.
 
----
+<p align="center">
+  ✦ &nbsp; ✦ &nbsp; ✦
+</p>
 
 ## 🎓 Education & Certifications
 
 - **B.Tech, Computer & Communication Engineering** · Manipal Institute of Technology *(2023 – 2027)*
 - **Higher Secondary (Science, PCM)** · Delhi Public School, Indirapuram *(2023)*
-- ☁️ **AWS Certified Cloud Practitioner (CLF-C02)** preparation
+- ☁️ **AWS Cloud Practitioner (CLF-C02)** · Udemy learning complete, certification in the works
 - 📊 **Industrial Data Science Internship** · IIT Guwahati (1stop.ai) — ML & statistical modeling across healthcare, finance & social datasets
 - 🎓 **Data Vista 2024** — Generative AI, RAG & Power BI workshops
 
----
+<p align="center">
+  ✦ &nbsp; ✦ &nbsp; ✦
+</p>
 
 ## 📊 GitHub Stats
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=pavitagrawal&show_icons=true&theme=github_dark&hide_border=true&include_all_commits=true&count_private=true" height="180"/>
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=pavitagrawal&theme=github-dark&hide_border=true" height="180"/>
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=pavitagrawal&layout=compact&theme=github_dark&hide_border=true" height="180"/>
-</p>
-
-<p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=pavitagrawal&theme=onedark&no-frame=true&row=1"/>
+  <img src="https://github-readme-stats-fast.vercel.app/api?username=pavitagrawal&theme=github_dark&hide_border=true&include_all_commits=true&count_private=true" height="180"/>
+  <img src="https://github-readme-streak-stats-eight.vercel.app/?user=pavitagrawal&theme=github-dark&hide_border=true" height="180"/>
+  <img src="https://github-readme-stats-fast.vercel.app/api/top-langs/?username=pavitagrawal&layout=compact&theme=github_dark&hide_border=true" height="180"/>
 </p>
 
 <p align="center">
@@ -150,7 +185,9 @@ I love building things that *think* — from **agentic AI backends** and **RAG p
   <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=pavitagrawal&theme=github_dark"/>
 </p>
 
----
+<p align="center">
+  ✦ &nbsp; ✦ &nbsp; ✦
+</p>
 
 ## 💬 A quote for the journey
 
@@ -158,7 +195,9 @@ I love building things that *think* — from **agentic AI backends** and **RAG p
   <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical"/>
 </p>
 
----
+<p align="center">
+  ✦ &nbsp; ✦ &nbsp; ✦
+</p>
 
 ## 📫 Let's Connect!
 
