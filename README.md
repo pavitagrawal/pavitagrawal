@@ -132,18 +132,6 @@ End-to-end **Python** pipeline fusing **machine learning with GIS/LiDAR data** t
   ✦ &nbsp; ✦ &nbsp; ✦
 </p>
 
-## 📌 Pinned Repos
-
-| Repo | What it is | Stack | Links |
-|---|---|---|---|
-| [ai-speech-persona-builder](https://github.com/pavitagrawal/ai-speech-persona-builder) | AI speech-coaching platform with personalized feedback | TypeScript · FastAPI · Next.js · Gemini API | [Live](https://ai-speech-persona-builder.vercel.app) · [Code](https://github.com/pavitagrawal/ai-speech-persona-builder) |
-| [BHARAT-FINANCE](https://github.com/pavitagrawal/BHARAT-FINANCE) | Multilingual FinTech UI, AWS ImpactX Hackathon entry | Next.js 15 · React 19 · AWS | [Live](https://bharat-finance-chms.vercel.app) · [Code](https://github.com/pavitagrawal/BHARAT-FINANCE) |
-| [DTM_NatGeo_Project_GeoGPT](https://github.com/pavitagrawal/DTM_NatGeo_Project_GeoGPT) | Hydro-DTM pipeline for ML + GIS/LiDAR terrain models | Python · ML · GIS | [Code](https://github.com/pavitagrawal/DTM_NatGeo_Project_GeoGPT) |
-
-<p align="center">
-  ✦ &nbsp; ✦ &nbsp; ✦
-</p>
-
 ## 💼 Experience
 
 - **Control Assurance Intern** · **Deloitte, Audit & Assurance** · Gurugram *(May 2026 – Jul 2026)*
